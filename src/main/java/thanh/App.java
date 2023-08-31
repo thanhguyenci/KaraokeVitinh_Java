@@ -9,30 +9,19 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class App extends JFrame implements ActionListener {
     public App() {
         super("");
-        //setResizable(false);
         setSize(new Dimension(640, 200));
-        //setMinimumSize(new Dimension(800, 600));
-        //setMaximumSize(new Dimension(1280, 720));
-        //getContentPane().setBackground(Color.WHITE);
         setTitle("KaraokeVitinh");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container container = getContentPane();
 
         try {
-            //UIManager.setLookAndFeel("Nimbus");
-            //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-            //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                //Nimbus, Metal, Ocean
                 if ("Nimbus".equals(info.getName())) {
                     UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -45,11 +34,11 @@ public class App extends JFrame implements ActionListener {
         }
         JButton mButton_01 = new JButton();
         mButton_01.setText("Song List");
+        mButton_01.addActionListener(this);
 
         mButton_01.setPreferredSize(new Dimension(100, 25));
 
         JPanel TopPanel = new JPanel();
-        //TopPanel.setBorder(null);
         TopPanel.setLayout(new BorderLayout());
         TopPanel.add(mButton_01, BorderLayout.EAST);
 
@@ -57,7 +46,6 @@ public class App extends JFrame implements ActionListener {
         BottomPanel.setLayout(new BorderLayout());
 
         JPanel ControlPanel = new JPanel();
-        //ControlPanel.setLayout(new BorderLayout());
         JPanel FilePanel = new JPanel();
         JPanel ReservedPanel = new JPanel();
 
@@ -123,13 +111,39 @@ public class App extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new App();
-        JFrame Video = new Video();
-        Video.setVisible(true);
+        //JFrame Video = new Video();
+        //Video.setVisible(true);
+
+        //http://www.java2s.com/Tutorials/Java/Swing_How_to/JOptionPane/Show_confirmation_dialog_for_closing_JFrame.htm
+        final JFrame MainFrame = new App();
+        MainFrame.setVisible(true);
+        MainFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                int result = JOptionPane.showConfirmDialog(MainFrame,
+                        "Do you want to Exit ?", "Exit Confirmation : ",
+                        JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION)
+                    MainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                else if (result == JOptionPane.NO_OPTION)
+                    MainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            }
+        });
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String command = ((JButton) e.getSource()).getActionCommand();
+        //System.out.println(command);
 
+        switch (command) {
+            case "Song List":
+                System.out.println(command);
+                JFrame SongList = new SongList();
+                SongList.setVisible(true);
+                break;
+        }
     }
+
+
 }
