@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SongList extends JFrame implements ActionListener {
+
     public static JTable table;
     public JTextField textField;
     //private TableRowSorter sortera;
@@ -35,8 +36,8 @@ public class SongList extends JFrame implements ActionListener {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
-                 UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+                | UnsupportedLookAndFeelException e) {
             System.err.println(e.getCause());
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
@@ -63,7 +64,7 @@ public class SongList extends JFrame implements ActionListener {
 
         textField = new JTextField(20);
         textField.setFont(new Font("Serif", Font.BOLD, 20));
-        textField.setPreferredSize(new Dimension(0, 35));
+        textField.setPreferredSize(new Dimension(0, 45));
 
         JLabel search = new JLabel("Search : ");
         search.setFont(new Font("Serif", Font.BOLD, 20));
@@ -75,7 +76,6 @@ public class SongList extends JFrame implements ActionListener {
         gbc.gridx++;
         //gbc.gridy++;
         searchPanel.add(textField, gbc);
-
 
         BottomPanela.add(buttonAdd);
         BottomPanela.add(buttonRemove);
@@ -127,7 +127,6 @@ public class SongList extends JFrame implements ActionListener {
             //String result = String.format(format, i);
             tablemodel.addRow(new Object[]{String.format(format, i), " - Trọn Kiếp Bình Yên - 123456"});
         }*/
-
         //File folder = new File("C:\\Users\\Thanh\\Desktop\\Walaoke\\California Vol 18");
         File folder = new File("C:\\Users\\Thanh\\Desktop\\Walaoke\\MIDI California Vietnamese Vol20");
         File[] listOfFiles = folder.listFiles();
@@ -136,7 +135,7 @@ public class SongList extends JFrame implements ActionListener {
             if (listOfFiles[i].isFile()) {
                 //System.out.println("File " + i + " " + listOfFiles[i].getName().replace(".mid"," "));
                 String format = String.format("%06d", i); //replace(".mid"," "
-                tablemodel.addRow(new Object[]{String.format(format, i), listOfFiles[i].getName().replace(".mid"," ")});
+                tablemodel.addRow(new Object[]{String.format(format, i), listOfFiles[i].getName().replace(".mid", " ")});
             } else if (listOfFiles[i].isDirectory()) {
                 //System.out.println("Directory " + listOfFiles[i].getName());
             }
@@ -158,19 +157,17 @@ public class SongList extends JFrame implements ActionListener {
             }
         };
 
-
         table.setAutoCreateRowSorter(true);
-        table.setRowHeight(25);
+        table.setRowHeight(35);
         table.setFont(new Font("Serif", Font.BOLD, 20));
         table.getTableHeader().setFont(new Font("Serif", Font.BOLD, 10));
         table.setFillsViewportHeight(true);
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
-        table.setModel(tablemodel);
         table.setRowSorter(sorter);
+        table.setModel(tablemodel);
+
         //table.getTableHeader().setToolTipText("TEST TEST");
-
-
         textField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -212,6 +209,14 @@ public class SongList extends JFrame implements ActionListener {
         final JFrame SongList = new SongList();
         SongList.setVisible(true);
         SongList.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        /*GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+        int x = (int) rect.getMaxX() - SongList.getWidth();
+        int y = 0;
+        SongList.setLocation(x, y);
+        SongList.setVisible(true);*/
     }
 
     @Override

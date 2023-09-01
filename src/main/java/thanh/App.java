@@ -1,5 +1,6 @@
 package thanh;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -13,11 +14,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class App extends JFrame implements ActionListener {
+    public static JPanel ReserverPanelcontrol, ReserverPanelSongList;
+    public static JButton bButton_07;
+    public static JFrame MainFrame;
+
+    public static JScrollPane scrollforReserverPanelSongList;
+
     public App() {
         super("");
-        setSize(new Dimension(640, 200));
+        //setSize(new Dimension(640, 200));
         setTitle("KaraokeVitinh");
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container container = getContentPane();
 
         try {
@@ -27,8 +34,8 @@ public class App extends JFrame implements ActionListener {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
-                 UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+                 | UnsupportedLookAndFeelException e) {
             System.err.println(e.getCause());
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
@@ -46,8 +53,41 @@ public class App extends JFrame implements ActionListener {
         BottomPanel.setLayout(new BorderLayout());
 
         JPanel ControlPanel = new JPanel();
+
         JPanel FilePanel = new JPanel();
+
+        //TODO RESERVED PANEL
         JPanel ReservedPanel = new JPanel();
+        ReservedPanel.setLayout(new BorderLayout());
+
+        JPanel ReserverPanelcontrol = new JPanel();
+        ReserverPanelSongList = new JPanel();
+        ReserverPanelSongList.setPreferredSize(new Dimension(540, 210));
+        ReserverPanelSongList.setVisible(false);
+
+        String[] columnNames = {"#", ""};
+        Object[][] rowData = {{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""}};
+        JTable table = new JTable(rowData,columnNames);
+        SongList.setTableRowsSize(table);
+        //table.setRowHeight(35);
+        //DefaultTableModel tablemodel = new DefaultTableModel(rowData, columnNames);
+        //sortera = new TableRowSorter<>(tablemodel);
+        //String format = String.format("%07d", 0);
+        //String result = String.format(format, num);
+        /*for (int i = 1; i <= 10000; i++) {
+            String format = String.format("%06d", i);
+            //String result = String.format(format, i);
+            tablemodel.addRow(new Object[]{String.format(format, i), " - Trọn Kiếp Bình Yên - 123456"});
+        }*/
+
+        scrollforReserverPanelSongList = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollforReserverPanelSongList.setPreferredSize(new Dimension(540, 200));
+
+        ReserverPanelSongList.add(scrollforReserverPanelSongList);
+
+        ReservedPanel.add(ReserverPanelcontrol, BorderLayout.NORTH);
+        ReservedPanel.add(ReserverPanelSongList, BorderLayout.SOUTH);
 
         JButton bButton_01 = new JButton();
         bButton_01.setText("[]");
@@ -91,10 +131,14 @@ public class App extends JFrame implements ActionListener {
         bButton_06.setText("*");
         bButton_06.setPreferredSize(new Dimension(50, 35));
 
-        JButton bButton_07 = new JButton();
-        bButton_07.setText("Reserved List");
+        bButton_07 = new JButton();
+        bButton_07.setText("Show Reserved List");
         bButton_07.setPreferredSize(new Dimension(150, 25));
-        ReservedPanel.add(bButton_07);
+        bButton_07.addActionListener(this);
+
+        ReserverPanelcontrol.add(bButton_07);
+        //ReservedPanel.add(bButton_07,BorderLayout.NORTH);
+        ReservedPanel.add(ReserverPanelcontrol, BorderLayout.NORTH);
 
         FilePanel.add(slider);
         FilePanel.add(bButton_05);
@@ -107,17 +151,19 @@ public class App extends JFrame implements ActionListener {
 
         container.add(TopPanel, BorderLayout.NORTH);
         container.add(BottomPanel, BorderLayout.SOUTH);
-        setVisible(true);
+        //setVisible(true);
+
+        this.pack();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LineUnavailableException {
         //JFrame Video = new Video();
         //Video.setVisible(true);
 
         //http://www.java2s.com/Tutorials/Java/Swing_How_to/JOptionPane/Show_confirmation_dialog_for_closing_JFrame.htm
-        final JFrame MainFrame = new App();
+        MainFrame = new App();
         MainFrame.setVisible(true);
-        MainFrame.addWindowListener(new WindowAdapter() {
+        /*MainFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
                 int result = JOptionPane.showConfirmDialog(MainFrame,
@@ -128,22 +174,33 @@ public class App extends JFrame implements ActionListener {
                 else if (result == JOptionPane.NO_OPTION)
                     MainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             }
-        });
+        });*/
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = ((JButton) e.getSource()).getActionCommand();
-        //System.out.println(command);
+        System.out.println(command);
 
         switch (command) {
             case "Song List":
-                System.out.println(command);
+                //System.out.println(command);
                 JFrame SongList = new SongList();
                 SongList.setVisible(true);
                 break;
+
+            case "Show Reserved List":
+                ReserverPanelSongList.setVisible(true);
+                bButton_07.setText("Hide Reserved List");
+                MainFrame.pack();
+                break;
+
+            case "Hide Reserved List":
+                ReserverPanelSongList.setVisible(false);
+                bButton_07.setText("Show Reserved List");
+                MainFrame.pack();
+                break;
         }
     }
-
 
 }
