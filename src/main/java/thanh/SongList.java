@@ -26,7 +26,7 @@ public class SongList extends JFrame implements ActionListener {
 
     public SongList() {
         super("");
-        setSize(new Dimension(640, 480));
+        setSize(new Dimension(640, 880));
         setTitle("Song List");
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -40,6 +40,7 @@ public class SongList extends JFrame implements ActionListener {
             System.err.println(e.getCause());
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
+
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
 
@@ -65,6 +66,7 @@ public class SongList extends JFrame implements ActionListener {
         textField.setPreferredSize(new Dimension(0, 35));
 
         JLabel search = new JLabel("Search : ");
+        search.setFont(new Font("Serif", Font.BOLD, 20));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -118,30 +120,27 @@ public class SongList extends JFrame implements ActionListener {
         //Object[][] rowData = {{"Raja", "Java"},{"Vineet", "Java Script"},{"Archana", "Python"},{"Krishna", "Scala"},{"Adithya", "AWS"},{"Jai", ".Net"}};
         //DefaultTableModel tablemodel = new DefaultTableModel(rowData, columnNames);
         //sortera = new TableRowSorter<>(tablemodel);
-
-
         //String format = String.format("%07d", 0);
         //String result = String.format(format, num);
-
         /*for (int i = 1; i <= 10000; i++) {
             String format = String.format("%06d", i);
             //String result = String.format(format, i);
             tablemodel.addRow(new Object[]{String.format(format, i), " - Trọn Kiếp Bình Yên - 123456"});
         }*/
 
-        File folder = new File("C:\\Users\\Thanh\\Desktop\\Walaoke\\California Vol 18");
+        //File folder = new File("C:\\Users\\Thanh\\Desktop\\Walaoke\\California Vol 18");
+        File folder = new File("C:\\Users\\Thanh\\Desktop\\Walaoke\\MIDI California Vietnamese Vol20");
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
                 //System.out.println("File " + i + " " + listOfFiles[i].getName().replace(".mid"," "));
                 String format = String.format("%06d", i); //replace(".mid"," "
-                tablemodel.addRow(new Object[]{String.format(format, i), listOfFiles[i].getName()});
+                tablemodel.addRow(new Object[]{String.format(format, i), listOfFiles[i].getName().replace(".mid"," ")});
             } else if (listOfFiles[i].isDirectory()) {
                 //System.out.println("Directory " + listOfFiles[i].getName());
             }
         }
-
 
         // TODO TABLE WITH COLOR
         table = new JTable(tablemodel) {
