@@ -28,8 +28,8 @@ public class App extends JFrame implements ActionListener {
 
     public App() {
         super("");
-        setMinimumSize(new Dimension(720, 480));
-        getContentPane().setSize(new Dimension(640, 480));
+        //setMinimumSize(new Dimension(720, 480));
+        //getContentPane().setSize(new Dimension(640, 480));
         setupforAppThemes();
 
         //setBackground(Color.LIGHT_GRAY);
@@ -44,6 +44,7 @@ public class App extends JFrame implements ActionListener {
         setUpforReservedTable(container);
 
         JPanel mainCENTERpanel = new JPanel();
+        mainCENTERpanel.setPreferredSize(new Dimension(10, 20));
         getContentPane().add(mainCENTERpanel, BorderLayout.SOUTH);
         //JTableTest();
         //this.pack();
@@ -117,9 +118,9 @@ public class App extends JFrame implements ActionListener {
         //setSize(640,480);
         // setVisible(true);
 
-        setMaximumSize(new Dimension(1920, 1080));
-        setPreferredSize(new Dimension(720, 480));
-        setVisible(true);
+        //setMaximumSize(new Dimension(1920, 1080));
+        //setPreferredSize(new Dimension(720, 480));
+        //setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -128,9 +129,9 @@ public class App extends JFrame implements ActionListener {
         //http://www.java2s.com/Tutorials/Java/Swing_How_to/JOptionPane/Show_confirmation_dialog_for_closing_JFrame.htm
         MainFrame = new App();
 
-        //MainFrame.setPreferredSize(new Dimension(800,480));
-        //MainFrame.setSize(new Dimension(640, 480));
-        //MainFrame.setVisible(true);
+        MainFrame.setPreferredSize(new Dimension(800,480));
+        MainFrame.setSize(new Dimension(720, 480));
+        MainFrame.setVisible(true);
 
 
         /*MainFrame.addWindowListener(new WindowAdapter() {
@@ -207,10 +208,14 @@ public class App extends JFrame implements ActionListener {
     public void setupformainNORTHPanel(Container container) {
 
         JPanel mainNORTHpanel = new JPanel();
-        mainNORTHpanel.setBorder(null);
+        mainNORTHpanel.setPreferredSize(new Dimension(20, 50));
+        mainNORTHpanel.setMinimumSize(new Dimension(0, 0));
+        mainNORTHpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         mainNORTHpanel.setLayout(new BorderLayout());
 
         JPanel mainNORTHPanelinner = new JPanel(new FlowLayout());
+        mainNORTHPanelinner.setPreferredSize(new Dimension(10, 50));
+        mainNORTHPanelinner.setMinimumSize(new Dimension(0, 0));
 
         mainNORTHpanel.add(mainNORTHPanelinner, BorderLayout.EAST);
 
@@ -296,7 +301,6 @@ public class App extends JFrame implements ActionListener {
 
         mButton_reserverdlist = new JButton();
         panel.add(mButton_reserverdlist);
-        mButton_reserverdlist.setBorder(null);
         mButton_reserverdlist.setFont(new Font("Arial", Font.BOLD, 10));
         mButton_reserverdlist.setText("Reserved List");
         mButton_reserverdlist.setPreferredSize(new Dimension(100, 25));
@@ -335,6 +339,7 @@ public class App extends JFrame implements ActionListener {
     public void setupformainRIGHTPanel(Container container) {
 
         JPanel mainRIGHTpanel = new JPanel();
+        mainRIGHTpanel.setPreferredSize(new Dimension(50, 10));
         mainRIGHTpanel.setBorder(null);
 
         container.add(mainRIGHTpanel, BorderLayout.EAST);
@@ -448,16 +453,29 @@ public class App extends JFrame implements ActionListener {
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         table.setAlignmentY(0.0f);
         table.setAlignmentX(0.0f);
-        table.setPreferredSize(new Dimension(620, 420));
-        table.setPreferredScrollableViewportSize(new Dimension(0, 0));
-
-        table.setModel(model);
+        //TODO VERY IMPORTANT, DO NOT SET TABLE WIDTH AND HEIGHT, USE table.setPreferredScrollableViewportSize(new Dimension(300, 300));
+        table.setPreferredScrollableViewportSize(new Dimension(300, 300));
 
         for (int i = 1; i <= 100; i++) {
             String format = String.format("%06d", i);
             //String result = String.format(format, i);
             model.addRow(new Object[]{String.format(format, i), "ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)"});
         }
+        
+        table.setModel(model);
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(540);
+        //JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrollPane = new JScrollPane();
+        //scrollPane.setMinimumSize(new Dimension(0, 0));
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        //scrollPane.setPreferredSize(new Dimension(0, 0));
+        scrollPane.setViewportView(table);
+        
+        /*JScrollPane scrollPane = new JScrollPane(table,
+                ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);*/
 
         //TODO OPTION 1 SET TABLE HEADER CENTER
         //((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
@@ -494,16 +512,7 @@ public class App extends JFrame implements ActionListener {
         tableHeader.setHorizontalAlignment(JLabel.CENTER);*/
 
 
-        table.getColumnModel().getColumn(0).setPreferredWidth(100);
-        table.getColumnModel().getColumn(1).setPreferredWidth(540);
-        //JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setSize(new Dimension(640, 200));
-        scrollPane.setMinimumSize(new Dimension(640, 200));
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-        scrollPane.setPreferredSize(new Dimension(620, 200));
-        scrollPane.setViewportView(table);
+        
 /*
         //TODO OPTION 2 SIMPLE TABLE
         JTable table = new JTable();
