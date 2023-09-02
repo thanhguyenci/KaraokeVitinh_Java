@@ -27,7 +27,7 @@ public class SongList extends JFrame implements ActionListener {
 
     public SongList() {
         super("");
-        setSize(new Dimension(640, 880));
+        setSize(new Dimension(720, 480));
         //setBounds(new Rectangle(10,10,640,480));
 
         setTitle("Song List");
@@ -62,7 +62,7 @@ public class SongList extends JFrame implements ActionListener {
         buttonRemove.setPreferredSize(new Dimension(50, 35));
 
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new GridBagLayout());
+        //searchPanel.setLayout(new GridBagLayout());
 
         textField = new JTextField(20);
         textField.setFont(new Font("Serif", Font.BOLD, 20));
@@ -74,10 +74,10 @@ public class SongList extends JFrame implements ActionListener {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        searchPanel.add(search, gbc);
+        searchPanel.add(search);
         gbc.gridx++;
         //gbc.gridy++;
-        searchPanel.add(textField, gbc);
+        searchPanel.add(textField);
 
         BottomPanela.add(buttonAdd);
         BottomPanela.add(buttonRemove);

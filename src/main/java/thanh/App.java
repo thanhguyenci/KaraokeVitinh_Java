@@ -28,22 +28,23 @@ public class App extends JFrame implements ActionListener {
 
     public App() {
         super("");
+        setMinimumSize(new Dimension(720, 480));
         getContentPane().setSize(new Dimension(640, 480));
         setupforAppThemes();
-        
+
         //setBackground(Color.LIGHT_GRAY);
         Container container = getContentPane();
         container.setLayout(new BorderLayout());
-        
+
         //setSize(new Dimension(640, 880));
         //setVisible(true);
         setupformainNORTHPanel(container);
         setupformainLEFTPanel(container);
         setupformainRIGHTPanel(container);
         setUpforReservedTable(container);
-        
+
         JPanel mainCENTERpanel = new JPanel();
-        getContentPane().add(mainCENTERpanel, BorderLayout.CENTER);
+        getContentPane().add(mainCENTERpanel, BorderLayout.SOUTH);
         //JTableTest();
         //this.pack();
         //mainWESTpanel.setLayout(new BorderLayout());
@@ -114,11 +115,10 @@ public class App extends JFrame implements ActionListener {
         //setVisible(true);
         */
         //setSize(640,480);
-       // setVisible(true);
-        
+        // setVisible(true);
+
         setMaximumSize(new Dimension(1920, 1080));
-        setMinimumSize(new Dimension(640, 480));
-        setPreferredSize(new Dimension(640, 480));
+        setPreferredSize(new Dimension(720, 480));
         setVisible(true);
     }
 
@@ -150,7 +150,7 @@ public class App extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = ((JButton) e.getSource()).getActionCommand();
-        System.out.println(command);
+        //System.out.println(command);
 
         switch (command) {
             case "Song List":
@@ -163,7 +163,7 @@ public class App extends JFrame implements ActionListener {
                 //scrollforReserverPanelSongList.setVisible(true);
                 //scrollPane.setVisible(true);
                 clicked++;
-                System.out.println(clicked);
+                //System.out.println(clicked);
                 if (clicked == 2) {
                     //ReserverPanelSongList.setVisible(false);
                     //scrollforReserverPanelSongList.setVisible(false);
@@ -223,7 +223,7 @@ public class App extends JFrame implements ActionListener {
         mainLEFTpanel.setMaximumSize(new Dimension(1920, 1080));
         //mainLEFTPanel.setBackground(new Color(255, 255, 255));
         //mainLEFTPanel.setBorder(new BevelBorder(1));
-        mainLEFTpanel.setPreferredSize(new Dimension(220, 220));
+        mainLEFTpanel.setPreferredSize(new Dimension(220, 200));
 
         JPanel playbackControl = new JPanel();
         playbackControl.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -237,7 +237,6 @@ public class App extends JFrame implements ActionListener {
         playbackControl.setPreferredSize(new Dimension(210, 30));
         //JPanel FilePanel = new JPanel();
         JButton mButton_stop = new JButton();
-        mButton_stop.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
         mButton_stop.setText("[ ]");
         mButton_stop.setPreferredSize(new Dimension(50, 25));
 
@@ -254,14 +253,14 @@ public class App extends JFrame implements ActionListener {
         playbackControl.add(mButton_play);
 
         mainLEFTpanel.add(playbackControl);
-        
-                JButton mButton_fastforward = new JButton();
-                playbackControl.add(mButton_fastforward);
-                mButton_fastforward.setText(">>");
-                mButton_fastforward.setPreferredSize(new Dimension(50, 25));
-        
+
+        JButton mButton_fastforward = new JButton();
+        playbackControl.add(mButton_fastforward);
+        mButton_fastforward.setText(">>");
+        mButton_fastforward.setPreferredSize(new Dimension(50, 25));
+
         container.add(mainLEFTpanel, BorderLayout.WEST);
-        
+
         JPanel settingsControl = new JPanel();
         settingsControl.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         settingsControl.setAlignmentY(0.0f);
@@ -273,17 +272,17 @@ public class App extends JFrame implements ActionListener {
         fl_settingsControl.setVgap(0);
         settingsControl.setSize(new Dimension(220, 30));
         mainLEFTpanel.add(settingsControl);
-        
+
         JButton mButton_05 = new JButton();
         settingsControl.add(mButton_05);
         mButton_05.setText("^");
         mButton_05.setPreferredSize(new Dimension(50, 25));
-        
+
         JButton mButton_settings = new JButton();
         settingsControl.add(mButton_settings);
         mButton_settings.setText("*");
         mButton_settings.setPreferredSize(new Dimension(50, 25));
-        
+
         JPanel panel = new JPanel();
         panel.setAlignmentY(0.0f);
         panel.setAlignmentX(0.0f);
@@ -294,43 +293,43 @@ public class App extends JFrame implements ActionListener {
         panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
         panel.setPreferredSize(new Dimension(210, 30));
         mainLEFTpanel.add(panel);
-        
-                mButton_reserverdlist = new JButton();
-                panel.add(mButton_reserverdlist);
-                mButton_reserverdlist.setBorder(null);
-                mButton_reserverdlist.setFont(new Font("Arial", Font.BOLD, 10));
-                mButton_reserverdlist.setText("Reserved List");
-                mButton_reserverdlist.setPreferredSize(new Dimension(100, 25));
-                JButton mButton_SongList = new JButton();
-                panel.add(mButton_SongList);
-                mButton_SongList.setFont(new Font("Arial", Font.BOLD, 10));
-                mButton_SongList.setText("Song List");
-                mButton_SongList.addActionListener(this);
-                mButton_SongList.setPreferredSize(new Dimension(100, 25));
-                
-                JPanel panel_1 = new JPanel();
-                panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-                panel_1.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-                panel_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
-                FlowLayout flowLayout_2 = (FlowLayout) panel_1.getLayout();
-                flowLayout_2.setVgap(0);
-                flowLayout_2.setHgap(0);
-                flowLayout_2.setAlignment(FlowLayout.LEFT);
-                panel_1.setPreferredSize(new Dimension(210, 30));
-                mainLEFTpanel.add(panel_1);
-                
-                        JSlider slider_volumn = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
-                        panel_1.add(slider_volumn);
-                        //slider.setSize(new Dimension(150, 50));
-                        //final JLabel finalStatusLabel = statusLabel;
-                        //slider_volumn.setSize(new Dimension(150,15));
-                        slider_volumn.setPreferredSize(new Dimension(120, 15));
-                        slider_volumn.addChangeListener(new ChangeListener() {
-                            public void stateChanged(ChangeEvent e) {
-                                //finalStatusLabel.setText("Value : " + ((JSlider) e.getSource()).getValue());
-                            }
-                        });
-                mButton_reserverdlist.addActionListener(this);
+
+        mButton_reserverdlist = new JButton();
+        panel.add(mButton_reserverdlist);
+        mButton_reserverdlist.setBorder(null);
+        mButton_reserverdlist.setFont(new Font("Arial", Font.BOLD, 10));
+        mButton_reserverdlist.setText("Reserved List");
+        mButton_reserverdlist.setPreferredSize(new Dimension(100, 25));
+        JButton mButton_SongList = new JButton();
+        panel.add(mButton_SongList);
+        mButton_SongList.setFont(new Font("Arial", Font.BOLD, 10));
+        mButton_SongList.setText("Song List");
+        mButton_SongList.addActionListener(this);
+        mButton_SongList.setPreferredSize(new Dimension(100, 25));
+
+        JPanel panel_1 = new JPanel();
+        panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        panel_1.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        panel_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        FlowLayout flowLayout_2 = (FlowLayout) panel_1.getLayout();
+        flowLayout_2.setVgap(0);
+        flowLayout_2.setHgap(0);
+        flowLayout_2.setAlignment(FlowLayout.LEFT);
+        panel_1.setPreferredSize(new Dimension(210, 30));
+        mainLEFTpanel.add(panel_1);
+
+        JSlider slider_volumn = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+        panel_1.add(slider_volumn);
+        //slider.setSize(new Dimension(150, 50));
+        //final JLabel finalStatusLabel = statusLabel;
+        //slider_volumn.setSize(new Dimension(150,15));
+        slider_volumn.setPreferredSize(new Dimension(120, 15));
+        slider_volumn.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                //finalStatusLabel.setText("Value : " + ((JSlider) e.getSource()).getValue());
+            }
+        });
+        mButton_reserverdlist.addActionListener(this);
     }
 
     public void setupformainRIGHTPanel(Container container) {
@@ -394,7 +393,7 @@ public class App extends JFrame implements ActionListener {
 
     public void setUpforReservedTable(Container container) {
         //TODO TABLE OPTION 1
-        Object[] columns = {"#", "Description"};
+        Object[] columns = {"#", ""};
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
             private static final long serialVersionUID = 1L;
 
@@ -438,27 +437,30 @@ public class App extends JFrame implements ActionListener {
                 //tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
 
                 //TODO OPTION 1 SET CELL CENTER
-                ((JLabel) comp).setHorizontalAlignment(JLabel.CENTER);
-                ((JLabel) comp).setFont(new Font("Arial",Font.BOLD,14));
+                //((JLabel) comp).setHorizontalAlignment(JLabel.CENTER);
+                //((JLabel) comp).setFont(new Font("Arial",Font.BOLD,14));
                 //OPTION 2
                 //TODO OPTION 1 SET CELL CENTER
                 //((DefaultTableCellRenderer) comp).setHorizontalAlignment(JLabel.CENTER);
                 return comp;
             }
         };
-        table.setPreferredSize(new Dimension(620, 200));
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        table.setAlignmentY(0.0f);
+        table.setAlignmentX(0.0f);
+        table.setPreferredSize(new Dimension(620, 420));
         table.setPreferredScrollableViewportSize(new Dimension(0, 0));
 
         table.setModel(model);
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 100; i++) {
             String format = String.format("%06d", i);
             //String result = String.format(format, i);
             model.addRow(new Object[]{String.format(format, i), "ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)"});
         }
 
         //TODO OPTION 1 SET TABLE HEADER CENTER
-        ((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        //((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
         //table.getTableHeader().setFont(new Font("Arial",Font.BOLD,18));
 
@@ -474,7 +476,7 @@ public class App extends JFrame implements ActionListener {
         //table.getTableHeader().setDefaultRenderer(cellHeaderRenderer);
 
         //table.setPreferredSize(new Dimension(600, 200));
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         //table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         //TableColumn c = table.getColumn(columns);
         //c.setResizable(false);
@@ -482,7 +484,7 @@ public class App extends JFrame implements ActionListener {
         //table.setAutoCreateRowSorter(true);
         //table.setRowHeight(25);
         //table.setFont(new Font("Arial", Font.BOLD, 18));
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
+        //table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
         //((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).set;
 
         /*((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
@@ -496,10 +498,11 @@ public class App extends JFrame implements ActionListener {
         table.getColumnModel().getColumn(1).setPreferredWidth(540);
         //JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setSize(new Dimension(640, 200));
         scrollPane.setMinimumSize(new Dimension(640, 200));
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-        scrollPane.setPreferredSize(new Dimension(640, 200));
+        scrollPane.setPreferredSize(new Dimension(620, 200));
         scrollPane.setViewportView(table);
 /*
         //TODO OPTION 2 SIMPLE TABLE
@@ -600,6 +603,6 @@ public class App extends JFrame implements ActionListener {
         //add(scrollPane);
         //setResizable(false);
         //setVisible(true);
-        container.add(scrollPane, BorderLayout.SOUTH);
+        container.add(scrollPane, BorderLayout.CENTER);
     }
 }
