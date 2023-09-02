@@ -1,5 +1,7 @@
 package thanh;
 
+import sun.swing.table.DefaultTableCellHeaderRenderer;
+
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
@@ -371,27 +373,52 @@ public class App extends JFrame implements ActionListener {
                 TableColumn tableColumn = getColumnModel().getColumn(column);
                 tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
 
-                ((JLabel) comp).setHorizontalAlignment(JLabel.CENTER);
+                //TODO OPTION 1 SET CELL CENTER
+                //((JLabel) comp).setHorizontalAlignment(JLabel.CENTER);
+                //OPTION 2
+                //TODO OPTION 1 SET CELL CENTER
+                //((DefaultTableCellRenderer) comp).setHorizontalAlignment(JLabel.CENTER);
                 return comp;
             }
         };
+
+        table.setModel(model);
 
         for (int i = 1; i <= 10; i++) {
             String format = String.format("%06d", i);
             //String result = String.format(format, i);
             model.addRow(new Object[]{String.format(format, i), "ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)"});
         }
+
+        //TODO OPTION 1 SET TABLE HEADER CENTER
+        //((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
+
         //table.getTableHeader().setFont(new Font("Arial",Font.BOLD,18));
+
+        //TODO OPTION 2 SET TABLE CELL CENTER
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(String.class, cellRenderer);
 
-        table.setModel(model);
-        table.setAutoCreateRowSorter(true);
-        table.setRowHeight(25);
+        //TODO OPTION 2 SET TABLE HEADER CENTER
+        DefaultTableCellRenderer cellHeaderRenderer = new DefaultTableCellRenderer();
+        cellHeaderRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getTableHeader().setDefaultRenderer(cellHeaderRenderer);
+
+
+        //table.setAutoCreateRowSorter(true);
+        //table.setRowHeight(25);
         //table.setFont(new Font("Arial", Font.BOLD, 18));
-        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 10));
-        ((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.RIGHT);
+        //table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 10));
+        //((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer()).set;
+
+        /*((DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.RIGHT);*/
+
+        /*DefaultTableCellHeaderRenderer tableHeader = new DefaultTableCellHeaderRenderer();
+        tableHeader.setHorizontalAlignment(JLabel.CENTER);*/
+
+
         //table.getColumnModel().getColumn(0).setPreferredWidth(100);
         //table.getColumnModel().getColumn(1).setPreferredWidth(500);
         //JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
