@@ -4,7 +4,9 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,38 +15,34 @@ import java.awt.event.ActionListener;
 public class App extends JFrame implements ActionListener {
     public static JButton mButton_reserverdlist;
     public static JFrame MainFrame;
-    public static JScrollPane scrollforReserverPanelSongList;
+    //public static JScrollPane scrollforReserverPanelSongList;
     int clicked = 0;
+    //private static JScrollPane scrollPane;
+    //private static DefaultTableModel model;
+    //private DefaultTableCellRenderer cellRenderer;
+    //static JTable table;
 
     public App() {
         super("");
-
         Container container = getContentPane();
-
-        setupAppThemes();
-
-        setupNorthPanel(container);
-
-        setupLeftPanel(container);
-
-        setUpReservedTable(container);
+        container.setLayout(new BorderLayout());
+        setupforAppThemes();
+        //setSize(new Dimension(640, 880));
+        //setVisible(true);
+        //setupformainNORTHPanel(container);
+        //setupformainLEFTPanel(container);
+        //setupformainRIGHTPanel(container);
+        setUpforReservedTable(container);
+        //JTableTest();
+        //this.pack();
         //mainWESTpanel.setLayout(new BorderLayout());
-
-        //TODO BORDER LAYOUT WEST PANEL SETUP
-
-
-        //TODO RESERVED PANEL
         //JPanel ReservedPanel = new JPanel();
         //ReservedPanel.setLayout(new BorderLayout());
-
         //JPanel reserverPanelbutton = new JPanel();
         //reserverPanelbutton.setLayout(new BorderLayout());
-
         //ReserverPanelSongList = new JPanel();
         //ReserverPanelSongList.setPreferredSize(new Dimension(500, 210));
         //ReserverPanelSongList.setVisible(false);
-
-
         //scrollforReserverPanelSongList.setPreferredSize(new Dimension(620, 200));
         //scrollforReserverPanelSongList.setVerticalScrollBar(scrollforReserverPanelSongList.createVerticalScrollBar());
 
@@ -53,54 +51,57 @@ public class App extends JFrame implements ActionListener {
                         .getWidth() * verticalScrollBarWidthCoefficient,
                 (int) scrollforReserverPanelSongList.getVerticalScrollBar().getPreferredSize().getHeight()
         ));*/
-
         //ReserverPanelSongList.add(scrollforReserverPanelSongList);
-
         //ReservedPanel.add(reserverPanelbutton, BorderLayout.NORTH);
         //ReservedPanel.add(scrollforReserverPanelSongList, BorderLayout.SOUTH);
-
         //JLabel headerLabel;
         //JLabel statusLabel;
         //JPanel controlPanel;
         //headerLabel.setText("Control in action: JSlider");
-        JSlider slider_volumn = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
-        //slider.setSize(new Dimension(150, 50));
-        //final JLabel finalStatusLabel = statusLabel;
-        //slider_volumn.setSize(new Dimension(150,15));
-        slider_volumn.setPreferredSize(new Dimension(120, 15));
-        slider_volumn.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                //finalStatusLabel.setText("Value : " + ((JSlider) e.getSource()).getValue());
-            }
-        });
-
-        JButton bButton_05 = new JButton();
-        bButton_05.setText("^");
-        bButton_05.setPreferredSize(new Dimension(50, 25));
-
-        JButton bButton_settings = new JButton();
-        bButton_settings.setText("*");
-        bButton_settings.setPreferredSize(new Dimension(50, 25));
-
-
-
         //reserverPanelbutton.add(bButton_reserverdlist,BorderLayout.WEST);
         //ReservedPanel.add(bButton_07,BorderLayout.NORTH);
         //ReservedPanel.add(reserverPanelbutton, BorderLayout.NORTH);
-
         //FilePanel.add(slider_volumn);
         //FilePanel.add(bButton_05);
         //FilePanel.add(bButton_settings);
-
-
         //MainBottomPanel.add(FilePanel, BorderLayout.CENTER);
         //MainBottomPanel.add(ReservedPanel, BorderLayout.SOUTH);
-
         //container.add(MainNorthPanel, BorderLayout.NORTH);
-
         //setVisible(true);
-        setPreferredSize(new Dimension(1280, 720));
-        this.pack();
+        //this.pack();
+
+/*
+        scrollPane = new JScrollPane();
+        JTable table = new JTable();
+        scrollPane.setViewportView(table);
+        model = (DefaultTableModel)table.getModel();
+        model.addColumn("S.No");
+        model.addColumn("First Name");
+        model.addColumn("Last Name");
+        model.addColumn("Email");
+        model.addColumn("Contact");
+        for(int i = 0;i < 4; i++) {
+            model.addRow(new Object[0]);
+            model.setValueAt(i+1, i, 0);
+            model.setValueAt("Tutorials", i, 1);
+            model.setValueAt("Point", i, 2);
+            model.setValueAt("@tutorialspoint.com", i, 3);
+            model.setValueAt("123456789", i, 4);
+        }
+        // set the column width for each column
+        table.getColumnModel().getColumn(0).setPreferredWidth(5);
+        table.getColumnModel().getColumn(3).setPreferredWidth(100);
+        cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+        //container.add(scrollPane);
+        add(scrollPane);
+        //setSize(475, 250);
+        setResizable(false);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        //setVisible(true);
+        */
     }
 
     public static void main(String[] args) {
@@ -108,8 +109,11 @@ public class App extends JFrame implements ActionListener {
         //video.setVisible(true);
         //http://www.java2s.com/Tutorials/Java/Swing_How_to/JOptionPane/Show_confirmation_dialog_for_closing_JFrame.htm
         MainFrame = new App();
+
         //MainFrame.setPreferredSize(new Dimension(800,480));
+        MainFrame.setSize(new Dimension(640, 480));
         MainFrame.setVisible(true);
+
 
         /*MainFrame.addWindowListener(new WindowAdapter() {
             @Override
@@ -138,12 +142,14 @@ public class App extends JFrame implements ActionListener {
 
             case "Reserved List":
                 //ReserverPanelSongList.setVisible(true);
-                scrollforReserverPanelSongList.setVisible(true);
+                //scrollforReserverPanelSongList.setVisible(true);
+                //scrollPane.setVisible(true);
                 clicked++;
                 System.out.println(clicked);
                 if (clicked == 2) {
                     //ReserverPanelSongList.setVisible(false);
-                    scrollforReserverPanelSongList.setVisible(false);
+                    //scrollforReserverPanelSongList.setVisible(false);
+                    //scrollPane.setVisible(false);
                     clicked = 0;
                 }
                 //bButton_reserverdlist.setText("Hide");
@@ -158,7 +164,7 @@ public class App extends JFrame implements ActionListener {
         }
     }
 
-    public void setupAppThemes() {
+    public void setupforAppThemes() {
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -172,12 +178,15 @@ public class App extends JFrame implements ActionListener {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
         //setResizable(false);
-        //setSize(new Dimension(800, 200));
         setTitle("KaraokeVitinh");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setPreferredSize(new Dimension(800, 480));
+        //setSize(1280, 720);
+        //setVisible(true);
+        //this.pack();
     }
 
-    public void setupNorthPanel(Container container) {
+    public void setupformainNORTHPanel(Container container) {
         JButton mButton_SongList = new JButton();
         mButton_SongList.setFont(new Font("Arial", Font.BOLD, 10));
         mButton_SongList.setText("Song List");
@@ -190,23 +199,23 @@ public class App extends JFrame implements ActionListener {
         mButton_reserverdlist.setPreferredSize(new Dimension(100, 25));
         mButton_reserverdlist.addActionListener(this);
 
-        JPanel mainNorthPanel = new JPanel();
-        mainNorthPanel.setBorder(new BevelBorder(1));
-        mainNorthPanel.setLayout(new BorderLayout());
+        JPanel mainNORTHPanel = new JPanel();
+        mainNORTHPanel.setBorder(new BevelBorder(1));
+        mainNORTHPanel.setLayout(new BorderLayout());
 
-        JPanel mainNorthPanelinnerLayout = new JPanel(new FlowLayout());
+        JPanel mainNORTHPanelinner = new JPanel(new FlowLayout());
 
-        mainNorthPanelinnerLayout.add(mButton_reserverdlist);
-        mainNorthPanelinnerLayout.add(mButton_SongList);
+        mainNORTHPanelinner.add(mButton_reserverdlist);
+        mainNORTHPanelinner.add(mButton_SongList);
 
-        mainNorthPanel.add(mainNorthPanelinnerLayout,BorderLayout.EAST);
+        mainNORTHPanel.add(mainNORTHPanelinner, BorderLayout.EAST);
 
-        container.add(mainNorthPanel, BorderLayout.NORTH);
+        container.add(mainNORTHPanel, BorderLayout.NORTH);
     }
 
-    public void setupLeftPanel(Container container) {
-        JPanel mainLEFTpanel = new JPanel();
-        mainLEFTpanel.setBorder(new BevelBorder(1));
+    public void setupformainLEFTPanel(Container container) {
+        JPanel mainLEFTPanel = new JPanel();
+        mainLEFTPanel.setBorder(new BevelBorder(1));
 
         JPanel playbackControl = new JPanel();
         //JPanel FilePanel = new JPanel();
@@ -231,46 +240,262 @@ public class App extends JFrame implements ActionListener {
         playbackControl.add(mButton_play);
         playbackControl.add(mButton_fastforward);
 
-        mainLEFTpanel.add(playbackControl);
+        mainLEFTPanel.add(playbackControl);
 
-        container.add(mainLEFTpanel, BorderLayout.WEST);
+        container.add(mainLEFTPanel, BorderLayout.WEST);
     }
 
-    public void setUpReservedTable(Container container) {
-        String[] columnNames = {"#", ""};
-        //Object[][] rowData = {{"", ""}};
-        JTable table = new JTable();
-        table.setRowHeight(25);
-        table.setFont(new Font("Arial", Font.BOLD, 18));
+    public void setupformainRIGHTPanel(Container container) {
 
-        TableColumn column;
-        DefaultTableModel tablemodel = new DefaultTableModel(columnNames, 0);
-        table.setModel(tablemodel);
+        JPanel mainRIGHTPanel = new JPanel();
+
+        JSlider slider_volumn = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+        //slider.setSize(new Dimension(150, 50));
+        //final JLabel finalStatusLabel = statusLabel;
+        //slider_volumn.setSize(new Dimension(150,15));
+        slider_volumn.setPreferredSize(new Dimension(120, 15));
+        slider_volumn.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                //finalStatusLabel.setText("Value : " + ((JSlider) e.getSource()).getValue());
+            }
+        });
+
+        JButton mButton_05 = new JButton();
+        mButton_05.setText("^");
+        mButton_05.setPreferredSize(new Dimension(50, 25));
+
+        JButton mButton_settings = new JButton();
+        mButton_settings.setText("*");
+        mButton_settings.setPreferredSize(new Dimension(50, 25));
+
+        mainRIGHTPanel.add(slider_volumn);
+        mainRIGHTPanel.add(mButton_05);
+        mainRIGHTPanel.add(mButton_settings);
+
+        container.add(mainRIGHTPanel, BorderLayout.EAST);
+    }
+
+    public static void ReserverdTable(JTable table) {
+        table = new JTable();
+        /*JTable table = new JTable() {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component component = super.prepareRenderer(renderer, row, column);
+                int rendererWidth = component.getPreferredSize().width;
+                TableColumn tableColumn = getColumnModel().getColumn(column);
+                tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+                return component;
+            }
+        };*/
+        //table.setRowHeight(25);
+        //table.setPreferredSize(new Dimension(800,600));
+        //table.setSize(1280, 720);
+        //table.setFont(new Font("Arial", Font.BOLD, 18));
+        //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        //DefaultTableModel tablemodel = new DefaultTableModel(columnNames, 0);
+        //DefaultTableModel model = null;
+        //DefaultTableCellRenderer cellRenderer;
+        //scrollPane = new JScrollPane();
+        //scrollPane.setViewportView(table);
+
+        //model = (DefaultTableModel) table.getModel();
+        //model.addColumn("#");
+        //model.addColumn(" ");
+        //model.addColumn(" ");
+
+        //model.addRow(new Object[0]);
+        //model.setValueAt(i+1, i, 0);
+
+        /*for (int i = 0; i < 4; i++) {
+            String format = String.format("%06d", i);
+            model.addRow(new Object[0]);
+            model.setValueAt(String.format(format, i), i, 0);
+            model.setValueAt("ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)", i, 1);
+        }*/
+
+        //table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        //table.getColumnModel().getColumn(1).setPreferredWidth(600);
+        //table.setModel(tablemodel);
+        /*for (int i = 1; i <= 10; i++) {
+            String format = String.format("%06d", i);
+            //String result = String.format(format, i);
+            table.addRow(new Object[]{String.format(format, i), "ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)"});
+        }*/
+
+        //scrollPane.setPreferredSize(new Dimension(420, 100));
+    }
+
+    public void setUpforReservedTable(Container container) {
+        //TODO TABLE OPTION 1
+        Object[] columns = {"#", "Description"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0) {
+            private static final long serialVersionUID = 1L;
+
+            // TODO i set column 1 description editable
+            // return false is noneditable
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // make read only fields except column 0,13,14
+                //return column == 1 || column == 2;// || column == 6;
+                // || column == 2 || column == 3 || column == 4;
+                // return column == 1 || column == 10;
+                return false;
+            }
+
+            // TODO i declare column as below
+            @Override
+            public Class<?> getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return String.class;
+                    default:
+                        return String.class;
+                }
+            }
+        };
+        JTable table = new JTable() {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component comp = super.prepareRenderer(renderer, row, column);
+                Color alternateColor = new Color(240, 240, 240);
+                Color whiteColor = Color.WHITE;
+                if (!comp.getBackground().equals(getSelectionBackground())) {
+                    Color bg = (row % 2 == 0 ? alternateColor : whiteColor);
+                    comp.setBackground(bg);
+                }
+
+                int rendererWidth = comp.getPreferredSize().width;
+                TableColumn tableColumn = getColumnModel().getColumn(column);
+                tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+
+                ((JLabel) comp).setHorizontalAlignment(JLabel.CENTER);
+                return comp;
+            }
+        };
+
         for (int i = 1; i <= 10; i++) {
             String format = String.format("%06d", i);
             //String result = String.format(format, i);
-            tablemodel.addRow(new Object[]{String.format(format, i), "Trọn Kiếp Bình Yên - 123456"});
+            model.addRow(new Object[]{String.format(format, i), "ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)"});
         }
+        //table.getTableHeader().setFont(new Font("Arial",Font.BOLD,18));
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        for (int i = 0; i < table.getColumnCount(); i++) {
+        table.setModel(model);
+        table.setAutoCreateRowSorter(true);
+        table.setRowHeight(25);
+        //table.setFont(new Font("Arial", Font.BOLD, 18));
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 10));
+        ((DefaultTableCellRenderer)table.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.RIGHT);
+        //table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        //table.getColumnModel().getColumn(1).setPreferredWidth(500);
+        //JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(table);
+/*
+        //TODO OPTION 2 SIMPLE TABLE
+        JTable table = new JTable();
+        scrollPane = new JScrollPane();
+        scrollPane.setViewportView(table);
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.addColumn("#");
+        model.addColumn(" ");
+        for(int i = 0;i < 4; i++) {
+            model.addRow(new Object[0]);
+            //model.setValueAt(i+1, i, 0);
+            model.setValueAt(String.format("%06d", i), i, 0);
+            model.setValueAt("ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)", i, 1);
+        }
+        table.getColumnModel().getColumn(0).setPreferredWidth(60);
+        table.getColumnModel().getColumn(1).setPreferredWidth(500);
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer);
+*/
+        //scrollPane.setPreferredSize(new Dimension(500, 100));
+        //scrollPane.setVisible(true);
+        //add(scrollPane);
+        //table.setFillsViewportHeight(true);
+        //String[] columnNames = {"#", ""};
+        //Object[][] rowData = {{"", ""}};
+        //JPanel ReservedTablePanel = new JPanel();
+        //ReservedTablePanel.setBorder(new BevelBorder(1));
+        //ReservedTablePanel.setPreferredSize(new Dimension(800, 600));
+        //JButton button = new JButton();
+        //button.setPreferredSize(new Dimension(100, 50));
+        //ReservedTablePanel.add(button);
+        //JTable table = new JTable();
+        /*JTable table = new JTable() {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component component = super.prepareRenderer(renderer, row, column);
+                int rendererWidth = component.getPreferredSize().width;
+                TableColumn tableColumn = getColumnModel().getColumn(column);
+                tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+                return component;
+            }
+        };*/
+        //table.setRowHeight(25);
+        //table.setPreferredSize(new Dimension(800,600));
+        //table.setSize(1280, 720);
+        //table.setFont(new Font("Arial", Font.BOLD, 18));
+        //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        //DefaultTableModel tablemodel = new DefaultTableModel(columnNames, 0);
+        //DefaultTableModel model = null;
+        //DefaultTableCellRenderer cellRenderer;
+        //scrollPane = new JScrollPane();
+        //scrollPane = new JScrollPane();
+        //scrollPane.setViewportView(table);
+
+        //model = (DefaultTableModel) table.getModel();
+        //model.addColumn("#");
+        //model.addColumn(" ");
+        //model.addRow(new Object[0]);
+        //model.setValueAt(i+1, i, 0);
+
+        /*for (int i = 0; i < 4; i++) {
+            String format = String.format("%06d", i);
+            model.addRow(new Object[0]);
+            model.setValueAt(String.format(format, i), i, 0);
+            model.setValueAt("ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)", i, 1);
+        }*/
+
+        //table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        //table.getColumnModel().getColumn(1).setPreferredWidth(600);
+        //table.setModel(tablemodel);
+        //scrollPane.setPreferredSize(new Dimension(420, 100));
+        //TableColumn column;
+        /*for (int i = 0; i < table.getColumnCount(); i++) {
             column = table.getColumnModel().getColumn(i);
             switch (i) {
                 // no
                 case 0:
-                    column.setPreferredWidth(70);
+                    //column.setPreferredWidth(70);
+                    column.setWidth(70);
                     break;
                 case 1:
-                    column.setPreferredWidth(300);
+                    column.setPreferredWidth(600);
                     break;
                 default:
                     column.setPreferredWidth(80);
             }
-        }
+        }*/
 
         //int verticalScrollBarWidthCoefficient = 3;
-        scrollforReserverPanelSongList = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-        container.add(scrollforReserverPanelSongList, BorderLayout.EAST);
+        /*scrollforReserverPanelSongList = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);*/
+        //setResizable(true);
+        //table.setFillsViewportHeight(true);
+        //setPreferredSize(new Dimension(640,480));
+        //add(scrollPane);
+        //setResizable(false);
+        //setVisible(true);
+        container.add(scrollPane, BorderLayout.SOUTH);
     }
 }

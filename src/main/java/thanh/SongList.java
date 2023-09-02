@@ -27,8 +27,8 @@ public class SongList extends JFrame implements ActionListener {
 
     public SongList() {
         super("");
-        //setSize(new Dimension(640, 880));
-        setBounds(new Rectangle(10,10,640,480));
+        setSize(new Dimension(640, 880));
+        //setBounds(new Rectangle(10,10,640,480));
 
         setTitle("Song List");
         try {
@@ -201,12 +201,12 @@ public class SongList extends JFrame implements ActionListener {
         JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //scroll.setLayout(layout);
-        scroll.setPreferredSize(new Dimension(620, 480));
+        //scroll.setPreferredSize(new Dimension(620, 480));
 
         container.add(scroll, BorderLayout.CENTER);
         container.add(BottomPanel, BorderLayout.SOUTH);
-        setPreferredSize(new Dimension(640,480));
-        this.pack();
+        //setPreferredSize(new Dimension(640,480));
+        //this.pack();
     }
 
     public static void main(String[] args) {
