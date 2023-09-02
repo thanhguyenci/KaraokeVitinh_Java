@@ -27,7 +27,9 @@ public class SongList extends JFrame implements ActionListener {
 
     public SongList() {
         super("");
-        setSize(new Dimension(640, 880));
+        //setSize(new Dimension(640, 880));
+        setBounds(new Rectangle(10,10,640,480));
+
         setTitle("Song List");
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -83,8 +85,8 @@ public class SongList extends JFrame implements ActionListener {
         //JTextField textField = new JTextField();
         BottomPanel.add(BottomPanela, BorderLayout.WEST);
 
-        Object[] header = {"#", ""};
-        DefaultTableModel tablemodel = new DefaultTableModel(header, 0) {
+        Object[] columns = {"#", ""};
+        DefaultTableModel tablemodel = new DefaultTableModel(columns, 0) {
             private static final long serialVersionUID = 1L;
 
             // TODO i set column 1 description editable
@@ -158,9 +160,9 @@ public class SongList extends JFrame implements ActionListener {
         };
 
         table.setAutoCreateRowSorter(true);
-        table.setRowHeight(35);
-        table.setFont(new Font("Serif", Font.BOLD, 20));
-        table.getTableHeader().setFont(new Font("Serif", Font.BOLD, 10));
+        table.setRowHeight(25);
+        table.setFont(new Font("Arial", Font.BOLD, 18));
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 10));
         table.setFillsViewportHeight(true);
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
@@ -199,10 +201,12 @@ public class SongList extends JFrame implements ActionListener {
         JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //scroll.setLayout(layout);
-        scroll.setPreferredSize(new Dimension(640, 480));
+        scroll.setPreferredSize(new Dimension(620, 480));
 
         container.add(scroll, BorderLayout.CENTER);
         container.add(BottomPanel, BorderLayout.SOUTH);
+        setPreferredSize(new Dimension(640,480));
+        this.pack();
     }
 
     public static void main(String[] args) {
@@ -231,10 +235,10 @@ public class SongList extends JFrame implements ActionListener {
             switch (i) {
                 // no
                 case 0:
-                    column.setPreferredWidth(65);
+                    column.setPreferredWidth(80);
                     break;
                 case 1:
-                    column.setPreferredWidth(500);
+                    column.setPreferredWidth(540);
                     break;
                 /*case 2:
                     column.setPreferredWidth(50);
@@ -243,11 +247,11 @@ public class SongList extends JFrame implements ActionListener {
                     column.setPreferredWidth(75);
                     break;*/
                 default:
-                    column.setPreferredWidth(65);
+                    column.setPreferredWidth(20);
             }
         }
-        table.revalidate();
-        table.repaint();
+        //table.revalidate();
+        //table.repaint();
     }
 
     public Set<String> listFilesUsingFilesList(String dir) throws IOException {

@@ -18,16 +18,18 @@ import java.net.URL;
 import static javafx.application.Application.launch;
 
 
-public class Video extends Application implements ActionListener {
+//public class Video extends Application JFrame implements ActionListener {
+    public class Video extends JFrame implements ActionListener {
 
-    public Video() {
+
+        public Video() {
         //super("");
         //setResizable(false);
-        //setSize(new Dimension(640, 480));
+        setSize(new Dimension(640, 480));
         //setMinimumSize(new Dimension(800, 600));
         //setMaximumSize(new Dimension(1280, 720));
         //getContentPane().setBackground(Color.WHITE);
-        //setTitle("Video");
+        setTitle("Video");
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -43,7 +45,7 @@ public class Video extends Application implements ActionListener {
         //setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void start(Stage primaryStage) throws Exception {
+    /*public void start(Stage primaryStage) throws Exception {
         // TODO Auto-generated method stub
         try {
             //https://www.javatpoint.com/javafx-playing-video
@@ -74,13 +76,13 @@ public class Video extends Application implements ActionListener {
             e.printStackTrace();
             System.err.println(e.getLocalizedMessage());
         }
-    }
+    }*/
 
     public static void main(String[] args) {
 
-        //JFrame VideoFrame = new Video();
-        //VideoFrame.setVisible(true);
-        launch(args);
+        JFrame VideoFrame = new Video();
+        VideoFrame.setVisible(true);
+        //launch(args);
     }
 
     @Override

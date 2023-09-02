@@ -1,123 +1,74 @@
 package thanh;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class App extends JFrame implements ActionListener {
-    public static JPanel ReserverPanelcontrol, ReserverPanelSongList;
-    public static JButton bButton_07;
+    public static JButton mButton_reserverdlist;
     public static JFrame MainFrame;
-
     public static JScrollPane scrollforReserverPanelSongList;
+    int clicked = 0;
 
     public App() {
         super("");
-        //setSize(new Dimension(640, 200));
-        setTitle("KaraokeVitinh");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         Container container = getContentPane();
 
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
-                 | UnsupportedLookAndFeelException e) {
-            System.err.println(e.getCause());
-            // If Nimbus is not available, you can set the GUI to another look and feel.
-        }
-        JButton mButton_01 = new JButton();
-        mButton_01.setText("Song List");
-        mButton_01.addActionListener(this);
+        setupAppThemes();
 
-        mButton_01.setPreferredSize(new Dimension(100, 25));
+        setupNorthPanel(container);
 
-        JPanel TopPanel = new JPanel();
-        TopPanel.setLayout(new BorderLayout());
-        TopPanel.add(mButton_01, BorderLayout.EAST);
+        setupLeftPanel(container);
 
-        JPanel BottomPanel = new JPanel();
-        BottomPanel.setLayout(new BorderLayout());
+        setUpReservedTable(container);
+        //mainWESTpanel.setLayout(new BorderLayout());
 
-        JPanel ControlPanel = new JPanel();
+        //TODO BORDER LAYOUT WEST PANEL SETUP
 
-        JPanel FilePanel = new JPanel();
 
         //TODO RESERVED PANEL
-        JPanel ReservedPanel = new JPanel();
-        ReservedPanel.setLayout(new BorderLayout());
+        //JPanel ReservedPanel = new JPanel();
+        //ReservedPanel.setLayout(new BorderLayout());
 
-        JPanel ReserverPanelcontrol = new JPanel();
-        ReserverPanelSongList = new JPanel();
-        ReserverPanelSongList.setPreferredSize(new Dimension(540, 210));
-        ReserverPanelSongList.setVisible(false);
+        //JPanel reserverPanelbutton = new JPanel();
+        //reserverPanelbutton.setLayout(new BorderLayout());
 
-        String[] columnNames = {"#", ""};
-        Object[][] rowData = {{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""},{"", ""}};
-        JTable table = new JTable(rowData,columnNames);
-        SongList.setTableRowsSize(table);
-        //table.setRowHeight(35);
-        //DefaultTableModel tablemodel = new DefaultTableModel(rowData, columnNames);
-        //sortera = new TableRowSorter<>(tablemodel);
-        //String format = String.format("%07d", 0);
-        //String result = String.format(format, num);
-        /*for (int i = 1; i <= 10000; i++) {
-            String format = String.format("%06d", i);
-            //String result = String.format(format, i);
-            tablemodel.addRow(new Object[]{String.format(format, i), " - Trọn Kiếp Bình Yên - 123456"});
-        }*/
+        //ReserverPanelSongList = new JPanel();
+        //ReserverPanelSongList.setPreferredSize(new Dimension(500, 210));
+        //ReserverPanelSongList.setVisible(false);
 
-        scrollforReserverPanelSongList = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollforReserverPanelSongList.setPreferredSize(new Dimension(540, 200));
 
-        ReserverPanelSongList.add(scrollforReserverPanelSongList);
+        //scrollforReserverPanelSongList.setPreferredSize(new Dimension(620, 200));
+        //scrollforReserverPanelSongList.setVerticalScrollBar(scrollforReserverPanelSongList.createVerticalScrollBar());
 
-        ReservedPanel.add(ReserverPanelcontrol, BorderLayout.NORTH);
-        ReservedPanel.add(ReserverPanelSongList, BorderLayout.SOUTH);
+        /*scrollforReserverPanelSongList.getVerticalScrollBar().setPreferredSize(new Dimension(
+                (int) scrollforReserverPanelSongList.getVerticalScrollBar().getPreferredSize()
+                        .getWidth() * verticalScrollBarWidthCoefficient,
+                (int) scrollforReserverPanelSongList.getVerticalScrollBar().getPreferredSize().getHeight()
+        ));*/
 
-        JButton bButton_01 = new JButton();
-        bButton_01.setText("[]");
-        bButton_01.setPreferredSize(new Dimension(50, 35));
+        //ReserverPanelSongList.add(scrollforReserverPanelSongList);
 
-        JButton bButton_02 = new JButton();
-        bButton_02.setText("<<");
-        bButton_02.setPreferredSize(new Dimension(50, 35));
-
-        JButton bButton_03 = new JButton();
-        bButton_03.setText(">");
-        bButton_03.setPreferredSize(new Dimension(50, 35));
-
-        JButton bButton_04 = new JButton();
-        bButton_04.setText(">>");
-        bButton_04.setPreferredSize(new Dimension(50, 35));
-
-        ControlPanel.add(bButton_01);
-        ControlPanel.add(bButton_02);
-        ControlPanel.add(bButton_03);
-        ControlPanel.add(bButton_04);
+        //ReservedPanel.add(reserverPanelbutton, BorderLayout.NORTH);
+        //ReservedPanel.add(scrollforReserverPanelSongList, BorderLayout.SOUTH);
 
         //JLabel headerLabel;
         //JLabel statusLabel;
         //JPanel controlPanel;
         //headerLabel.setText("Control in action: JSlider");
-        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
+        JSlider slider_volumn = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
         //slider.setSize(new Dimension(150, 50));
         //final JLabel finalStatusLabel = statusLabel;
-        slider.addChangeListener(new ChangeListener() {
+        //slider_volumn.setSize(new Dimension(150,15));
+        slider_volumn.setPreferredSize(new Dimension(120, 15));
+        slider_volumn.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 //finalStatusLabel.setText("Value : " + ((JSlider) e.getSource()).getValue());
             }
@@ -125,44 +76,41 @@ public class App extends JFrame implements ActionListener {
 
         JButton bButton_05 = new JButton();
         bButton_05.setText("^");
-        bButton_05.setPreferredSize(new Dimension(50, 35));
+        bButton_05.setPreferredSize(new Dimension(50, 25));
 
-        JButton bButton_06 = new JButton();
-        bButton_06.setText("*");
-        bButton_06.setPreferredSize(new Dimension(50, 35));
+        JButton bButton_settings = new JButton();
+        bButton_settings.setText("*");
+        bButton_settings.setPreferredSize(new Dimension(50, 25));
 
-        bButton_07 = new JButton();
-        bButton_07.setText("Show Reserved List");
-        bButton_07.setPreferredSize(new Dimension(150, 25));
-        bButton_07.addActionListener(this);
 
-        ReserverPanelcontrol.add(bButton_07);
+
+        //reserverPanelbutton.add(bButton_reserverdlist,BorderLayout.WEST);
         //ReservedPanel.add(bButton_07,BorderLayout.NORTH);
-        ReservedPanel.add(ReserverPanelcontrol, BorderLayout.NORTH);
+        //ReservedPanel.add(reserverPanelbutton, BorderLayout.NORTH);
 
-        FilePanel.add(slider);
-        FilePanel.add(bButton_05);
-        FilePanel.add(bButton_06);
+        //FilePanel.add(slider_volumn);
+        //FilePanel.add(bButton_05);
+        //FilePanel.add(bButton_settings);
 
-        BottomPanel.add(ControlPanel, BorderLayout.WEST);
-        BottomPanel.add(FilePanel, BorderLayout.EAST);
 
-        BottomPanel.add(ReservedPanel, BorderLayout.SOUTH);
+        //MainBottomPanel.add(FilePanel, BorderLayout.CENTER);
+        //MainBottomPanel.add(ReservedPanel, BorderLayout.SOUTH);
 
-        container.add(TopPanel, BorderLayout.NORTH);
-        container.add(BottomPanel, BorderLayout.SOUTH);
+        //container.add(MainNorthPanel, BorderLayout.NORTH);
+
         //setVisible(true);
-
+        setPreferredSize(new Dimension(1280, 720));
         this.pack();
     }
 
-    public static void main(String[] args) throws LineUnavailableException {
-        //JFrame Video = new Video();
-        //Video.setVisible(true);
-
+    public static void main(String[] args) {
+        //JFrame video = new Video();
+        //video.setVisible(true);
         //http://www.java2s.com/Tutorials/Java/Swing_How_to/JOptionPane/Show_confirmation_dialog_for_closing_JFrame.htm
         MainFrame = new App();
+        //MainFrame.setPreferredSize(new Dimension(800,480));
         MainFrame.setVisible(true);
+
         /*MainFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
@@ -184,23 +132,145 @@ public class App extends JFrame implements ActionListener {
 
         switch (command) {
             case "Song List":
-                //System.out.println(command);
                 JFrame SongList = new SongList();
                 SongList.setVisible(true);
                 break;
 
-            case "Show Reserved List":
-                ReserverPanelSongList.setVisible(true);
-                bButton_07.setText("Hide Reserved List");
-                MainFrame.pack();
+            case "Reserved List":
+                //ReserverPanelSongList.setVisible(true);
+                scrollforReserverPanelSongList.setVisible(true);
+                clicked++;
+                System.out.println(clicked);
+                if (clicked == 2) {
+                    //ReserverPanelSongList.setVisible(false);
+                    scrollforReserverPanelSongList.setVisible(false);
+                    clicked = 0;
+                }
+                //bButton_reserverdlist.setText("Hide");
+                //MainFrame.pack();
                 break;
 
-            case "Hide Reserved List":
+            /*case "Hide":
                 ReserverPanelSongList.setVisible(false);
-                bButton_07.setText("Show Reserved List");
+                bButton_reserverdlist.setText("Reserved List");
                 MainFrame.pack();
-                break;
+                break;*/
         }
     }
 
+    public void setupAppThemes() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+                 | UnsupportedLookAndFeelException e) {
+            System.err.println(e.getCause());
+            // If Nimbus is not available, you can set the GUI to another look and feel.
+        }
+        //setResizable(false);
+        //setSize(new Dimension(800, 200));
+        setTitle("KaraokeVitinh");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    public void setupNorthPanel(Container container) {
+        JButton mButton_SongList = new JButton();
+        mButton_SongList.setFont(new Font("Arial", Font.BOLD, 10));
+        mButton_SongList.setText("Song List");
+        mButton_SongList.addActionListener(this);
+        mButton_SongList.setPreferredSize(new Dimension(100, 25));
+
+        mButton_reserverdlist = new JButton();
+        mButton_reserverdlist.setFont(new Font("Arial", Font.BOLD, 10));
+        mButton_reserverdlist.setText("Reserved List");
+        mButton_reserverdlist.setPreferredSize(new Dimension(100, 25));
+        mButton_reserverdlist.addActionListener(this);
+
+        JPanel mainNorthPanel = new JPanel();
+        mainNorthPanel.setBorder(new BevelBorder(1));
+        mainNorthPanel.setLayout(new BorderLayout());
+
+        JPanel mainNorthPanelinnerLayout = new JPanel(new FlowLayout());
+
+        mainNorthPanelinnerLayout.add(mButton_reserverdlist);
+        mainNorthPanelinnerLayout.add(mButton_SongList);
+
+        mainNorthPanel.add(mainNorthPanelinnerLayout,BorderLayout.EAST);
+
+        container.add(mainNorthPanel, BorderLayout.NORTH);
+    }
+
+    public void setupLeftPanel(Container container) {
+        JPanel mainLEFTpanel = new JPanel();
+        mainLEFTpanel.setBorder(new BevelBorder(1));
+
+        JPanel playbackControl = new JPanel();
+        //JPanel FilePanel = new JPanel();
+        JButton mButton_stop = new JButton();
+        mButton_stop.setText("[ ]");
+        mButton_stop.setPreferredSize(new Dimension(50, 25));
+
+        JButton mButton_backward = new JButton();
+        mButton_backward.setText("<<");
+        mButton_backward.setPreferredSize(new Dimension(50, 25));
+
+        JButton mButton_play = new JButton();
+        mButton_play.setText(">");
+        mButton_play.setPreferredSize(new Dimension(50, 25));
+
+        JButton mButton_fastforward = new JButton();
+        mButton_fastforward.setText(">>");
+        mButton_fastforward.setPreferredSize(new Dimension(50, 25));
+
+        playbackControl.add(mButton_stop);
+        playbackControl.add(mButton_backward);
+        playbackControl.add(mButton_play);
+        playbackControl.add(mButton_fastforward);
+
+        mainLEFTpanel.add(playbackControl);
+
+        container.add(mainLEFTpanel, BorderLayout.WEST);
+    }
+
+    public void setUpReservedTable(Container container) {
+        String[] columnNames = {"#", ""};
+        //Object[][] rowData = {{"", ""}};
+        JTable table = new JTable();
+        table.setRowHeight(25);
+        table.setFont(new Font("Arial", Font.BOLD, 18));
+
+        TableColumn column;
+        DefaultTableModel tablemodel = new DefaultTableModel(columnNames, 0);
+        table.setModel(tablemodel);
+        for (int i = 1; i <= 10; i++) {
+            String format = String.format("%06d", i);
+            //String result = String.format(format, i);
+            tablemodel.addRow(new Object[]{String.format(format, i), "Trọn Kiếp Bình Yên - 123456"});
+        }
+
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            column = table.getColumnModel().getColumn(i);
+            switch (i) {
+                // no
+                case 0:
+                    column.setPreferredWidth(70);
+                    break;
+                case 1:
+                    column.setPreferredWidth(300);
+                    break;
+                default:
+                    column.setPreferredWidth(80);
+            }
+        }
+
+        //int verticalScrollBarWidthCoefficient = 3;
+        scrollforReserverPanelSongList = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        container.add(scrollforReserverPanelSongList, BorderLayout.EAST);
+    }
 }
