@@ -8,7 +8,7 @@ public class MidiPlayerWithLyrics {
     public static void main(String[] args) {
         try {
             // Load the MIDI file
-            File midiFile = new File("MIDI California Vietnamese Vol20\\RU LẠI CÂU HÒ_(828892).mid");  // Replace with your MIDI file path
+            File midiFile = new File("MIDI California Vietnamese Vol20\\QUÊN ĐI HẾT ĐAM MÊ_(830215).mid");  // Replace with your MIDI file path
             Sequence sequence = MidiSystem.getSequence(midiFile);
             Sequencer sequencer = MidiSystem.getSequencer();
             sequencer.open();
