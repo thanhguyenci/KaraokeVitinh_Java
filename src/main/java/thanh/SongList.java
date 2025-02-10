@@ -27,6 +27,7 @@ public class SongList extends JFrame implements ActionListener {
 
     public SongList() {
         super("");
+        setLocation(new Point(720, 10));
         setSize(new Dimension(720, 480));
         //setBounds(new Rectangle(10,10,640,480));
 
@@ -130,7 +131,7 @@ public class SongList extends JFrame implements ActionListener {
             tablemodel.addRow(new Object[]{String.format(format, i), " - Trọn Kiếp Bình Yên - 123456"});
         }*/
         //File folder = new File("C:\\Users\\Thanh\\Desktop\\Walaoke\\California Vol 18");
-        File folder = new File("C:\\Users\\Thanh\\Desktop\\Walaoke\\MIDI California Vietnamese Vol20");
+        File folder = new File("MIDI California Vietnamese Vol20");
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i++) {

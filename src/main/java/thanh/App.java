@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.EmptyBorder;
 
 public class App extends JFrame implements ActionListener {
     public static JButton mButton_reserverdlist;
@@ -28,16 +29,16 @@ public class App extends JFrame implements ActionListener {
 
     public App() {
         super("");
+        setMinimumSize(new Dimension(800, 0));
+        setLocation(new Point(10, 10));
         //setMinimumSize(new Dimension(720, 480));
         //getContentPane().setSize(new Dimension(640, 480));
         setupforAppThemes();
 
         //setBackground(Color.LIGHT_GRAY);
         Container container = getContentPane();
-        container.setLayout(new BorderLayout());
-
-        //setSize(new Dimension(640, 880));
-        //setVisible(true);
+        container.setLayout(new BorderLayout());  
+        
         setupformainNORTHPanel(container);
         setupformainLEFTPanel(container);
         setupformainRIGHTPanel(container);
@@ -118,9 +119,9 @@ public class App extends JFrame implements ActionListener {
         //setSize(640,480);
         // setVisible(true);
 
-        //setMaximumSize(new Dimension(1920, 1080));
-        //setPreferredSize(new Dimension(720, 480));
-        //setVisible(true);
+        setMaximumSize(new Dimension(1920, 1080));
+        setSize(720,480);
+        setVisible(true);
     }
 
     public static void main(String[] args) {
@@ -129,9 +130,9 @@ public class App extends JFrame implements ActionListener {
         //http://www.java2s.com/Tutorials/Java/Swing_How_to/JOptionPane/Show_confirmation_dialog_for_closing_JFrame.htm
         MainFrame = new App();
 
-        MainFrame.setPreferredSize(new Dimension(800,480));
-        MainFrame.setSize(new Dimension(720, 480));
-        MainFrame.setVisible(true);
+        //MainFrame.setPreferredSize(new Dimension(800,480));
+        //MainFrame.setSize(new Dimension(720, 480));
+        //MainFrame.setVisible(true);
 
 
         /*MainFrame.addWindowListener(new WindowAdapter() {
@@ -197,7 +198,7 @@ public class App extends JFrame implements ActionListener {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
         //setResizable(false);
-        setTitle("KaraokeVitinh");
+        setTitle("KaraokePC");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //setPreferredSize(new Dimension(800, 480));
         //setSize(1280, 720);
@@ -210,14 +211,22 @@ public class App extends JFrame implements ActionListener {
         JPanel mainNORTHpanel = new JPanel();
         mainNORTHpanel.setPreferredSize(new Dimension(20, 50));
         mainNORTHpanel.setMinimumSize(new Dimension(0, 0));
-        mainNORTHpanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        mainNORTHpanel.setBorder(null);
         mainNORTHpanel.setLayout(new BorderLayout());
 
-        JPanel mainNORTHPanelinner = new JPanel(new FlowLayout());
-        mainNORTHPanelinner.setPreferredSize(new Dimension(10, 50));
+        FlowLayout fl_mainNORTHPanelinner = new FlowLayout();
+        fl_mainNORTHPanelinner.setAlignment(FlowLayout.LEFT);
+        JPanel mainNORTHPanelinner = new JPanel(fl_mainNORTHPanelinner);
+        mainNORTHPanelinner.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        mainNORTHPanelinner.setPreferredSize(new Dimension(400, 50));
         mainNORTHPanelinner.setMinimumSize(new Dimension(0, 0));
 
-        mainNORTHpanel.add(mainNORTHPanelinner, BorderLayout.EAST);
+        mainNORTHpanel.add(mainNORTHPanelinner, BorderLayout.WEST);
+        
+        JLabel currentSongPlay = new JLabel("QUÊN ĐI HẾT ĐAM MÊ_(830215) ");
+        currentSongPlay.setPreferredSize(new Dimension(300, 20));
+        currentSongPlay.setAlignmentY(Component.TOP_ALIGNMENT);
+        mainNORTHPanelinner.add(currentSongPlay);
 
         container.add(mainNORTHpanel, BorderLayout.NORTH);
     }
@@ -288,42 +297,42 @@ public class App extends JFrame implements ActionListener {
         mButton_settings.setText("*");
         mButton_settings.setPreferredSize(new Dimension(50, 25));
 
-        JPanel panel = new JPanel();
-        panel.setAlignmentY(0.0f);
-        panel.setAlignmentX(0.0f);
-        FlowLayout flowLayout_1 = (FlowLayout) panel.getLayout();
-        flowLayout_1.setAlignment(FlowLayout.LEFT);
-        flowLayout_1.setVgap(0);
-        flowLayout_1.setHgap(0);
-        panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-        panel.setPreferredSize(new Dimension(210, 30));
-        mainLEFTpanel.add(panel);
+        JPanel songListPanel = new JPanel();
+        songListPanel.setAlignmentY(0.0f);
+        songListPanel.setAlignmentX(0.0f);
+        FlowLayout fl_songListPanel = (FlowLayout) songListPanel.getLayout();
+        fl_songListPanel.setAlignment(FlowLayout.LEFT);
+        fl_songListPanel.setVgap(0);
+        fl_songListPanel.setHgap(0);
+        songListPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        songListPanel.setPreferredSize(new Dimension(210, 30));
+        mainLEFTpanel.add(songListPanel);
 
         mButton_reserverdlist = new JButton();
-        panel.add(mButton_reserverdlist);
+        songListPanel.add(mButton_reserverdlist);
         mButton_reserverdlist.setFont(new Font("Arial", Font.BOLD, 10));
         mButton_reserverdlist.setText("Reserved List");
         mButton_reserverdlist.setPreferredSize(new Dimension(100, 25));
         JButton mButton_SongList = new JButton();
-        panel.add(mButton_SongList);
+        songListPanel.add(mButton_SongList);
         mButton_SongList.setFont(new Font("Arial", Font.BOLD, 10));
         mButton_SongList.setText("Song List");
         mButton_SongList.addActionListener(this);
         mButton_SongList.setPreferredSize(new Dimension(100, 25));
 
-        JPanel panel_1 = new JPanel();
-        panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-        panel_1.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        panel_1.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        FlowLayout flowLayout_2 = (FlowLayout) panel_1.getLayout();
-        flowLayout_2.setVgap(0);
-        flowLayout_2.setHgap(0);
-        flowLayout_2.setAlignment(FlowLayout.LEFT);
-        panel_1.setPreferredSize(new Dimension(210, 30));
-        mainLEFTpanel.add(panel_1);
+        JPanel volumnPanel = new JPanel();
+        volumnPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+        volumnPanel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        volumnPanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        FlowLayout fl_volumnPanel = (FlowLayout) volumnPanel.getLayout();
+        fl_volumnPanel.setAlignment(FlowLayout.LEFT);
+        volumnPanel.setPreferredSize(new Dimension(210, 30));
+        mainLEFTpanel.add(volumnPanel);
 
-        JSlider slider_volumn = new JSlider(JSlider.HORIZONTAL, 0, 100, 10);
-        panel_1.add(slider_volumn);
+        JSlider slider_volumn = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 10);
+        slider_volumn.setAlignmentY(Component.TOP_ALIGNMENT);
+        slider_volumn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        volumnPanel.add(slider_volumn);
         //slider.setSize(new Dimension(150, 50));
         //final JLabel finalStatusLabel = statusLabel;
         //slider_volumn.setSize(new Dimension(150,15));
@@ -339,7 +348,7 @@ public class App extends JFrame implements ActionListener {
     public void setupformainRIGHTPanel(Container container) {
 
         JPanel mainRIGHTpanel = new JPanel();
-        mainRIGHTpanel.setPreferredSize(new Dimension(50, 10));
+        mainRIGHTpanel.setPreferredSize(new Dimension(40, 10));
         mainRIGHTpanel.setBorder(null);
 
         container.add(mainRIGHTpanel, BorderLayout.EAST);
@@ -426,6 +435,7 @@ public class App extends JFrame implements ActionListener {
                 }
             }
         };
+        
         JTable table = new JTable() {
             @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -450,7 +460,7 @@ public class App extends JFrame implements ActionListener {
                 return comp;
             }
         };
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        
         table.setAlignmentY(0.0f);
         table.setAlignmentX(0.0f);
         //TODO VERY IMPORTANT, DO NOT SET TABLE WIDTH AND HEIGHT, USE table.setPreferredScrollableViewportSize(new Dimension(300, 300));
@@ -459,12 +469,16 @@ public class App extends JFrame implements ActionListener {
         for (int i = 1; i <= 100; i++) {
             String format = String.format("%06d", i);
             //String result = String.format(format, i);
-            model.addRow(new Object[]{String.format(format, i), "ANH CHỈ BIẾT CÂM NÍN NGHE TIẾNG EM KHÓC_(830083)"});
+            model.addRow(new Object[]{String.format(format, i), "QUÊN ĐI HẾT ĐAM MÊ_(830215)"});
         }
         
-        table.setModel(model);
-        table.getColumnModel().getColumn(0).setPreferredWidth(100);
-        table.getColumnModel().getColumn(1).setPreferredWidth(540);
+        table.setModel(new DefaultTableModel(
+        	new Object[][] {
+        	},
+        	new String[] {
+        	}
+        ));
+        
         //JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         JScrollPane scrollPane = new JScrollPane();
         //scrollPane.setMinimumSize(new Dimension(0, 0));
@@ -510,9 +524,7 @@ public class App extends JFrame implements ActionListener {
 
         /*DefaultTableCellHeaderRenderer tableHeader = new DefaultTableCellHeaderRenderer();
         tableHeader.setHorizontalAlignment(JLabel.CENTER);*/
-
-
-        
+   
 /*
         //TODO OPTION 2 SIMPLE TABLE
         JTable table = new JTable();

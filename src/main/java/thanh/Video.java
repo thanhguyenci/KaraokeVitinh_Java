@@ -1,6 +1,5 @@
 package thanh;
 
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -13,8 +12,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.URL;
-
 import static javafx.application.Application.launch;
 
 
@@ -45,7 +42,7 @@ import static javafx.application.Application.launch;
         //setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    /*public void start(Stage primaryStage) throws Exception {
+    /*public static void start(Stage primaryStage) throws Exception {
         // TODO Auto-generated method stub
         try {
             //https://www.javatpoint.com/javafx-playing-video
@@ -54,7 +51,7 @@ import static javafx.application.Application.launch;
             String path = "src/res/MP4/mountains (2).mp4";
 
             //Instantiating Media class
-            javafx.scene.media.Media media = new Media(new File(path).toURI().toString());
+            Media media = new Media(new File(path).toURI().toString());
 
             //Instantiating MediaPlayer class
             MediaPlayer mediaPlayer = new MediaPlayer(media);
@@ -83,6 +80,7 @@ import static javafx.application.Application.launch;
         JFrame VideoFrame = new Video();
         VideoFrame.setVisible(true);
         //launch(args);
+        
     }
 
     @Override
