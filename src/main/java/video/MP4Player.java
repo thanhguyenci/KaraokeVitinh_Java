@@ -38,12 +38,12 @@ public class MP4Player extends Application {
             primaryStage.setHeight(videoHeight);
         });*/
         
-        mediaView.setFitWidth(1280);  // Initial width
-        mediaView.setFitHeight(720);
+        mediaView.setFitWidth(1280/2);  // Initial width
+        mediaView.setFitHeight(720/2);
 
         // Create Scene and show stage
         StackPane root = new StackPane(mediaView);
-        Scene scene = new Scene(root, 1280, 720); // Set resolution
+        Scene scene = new Scene(root, 1280/2, 720/2); // Set resolution
         //Scene scene = new Scene(root, 1920, 1080);
         //Scene scene = new Scene(root);
 

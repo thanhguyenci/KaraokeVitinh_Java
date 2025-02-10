@@ -14,7 +14,8 @@ public class FontLoaderTest {
             frame.setLayout(new FlowLayout());
 
             JLabel label = new JLabel("Quên Đi Hết Đam Mê Custom Font Test");
-            label.setFont(loadFont("font-full/JumpstartKindergartenVietnam.ttf", 24f)); // Change the path
+            label.setFont(loadFont("font-full/JumpstartKindergartenVietnam.ttf", 24f));
+            //label.setFont(loadFont("font-full/arialuni.ttf", 15f));// Change the path
 
             frame.add(label);
             frame.setVisible(true);

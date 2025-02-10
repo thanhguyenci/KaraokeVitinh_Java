@@ -40,7 +40,7 @@ public class MidiPlayerWithLyrics {
                         long tickPosition = sequencer.getTickPosition();
                         lyricsMap.entrySet().removeIf(entry -> {
                             if (entry.getKey() <= tickPosition) {
-                                System.out.println(entry.getValue()); // Display lyric line
+                                System.out.print(entry.getValue()); // Display lyric line
                                 return true; // Remove displayed lyrics
                             }
                             return false;
