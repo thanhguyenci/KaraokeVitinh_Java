@@ -12,7 +12,7 @@ public class VideoPlayer extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Path to the video file
-        String videoPath = new File("videos\\mountains_-_59291 (1080p)_mpeg1video_x264.mp4").toURI().toString();
+        String videoPath = new File("videos\\[KARAOKE SONG CA] - NƠI TÌNH YÊU BẮT ĐẦU - Bằng Kiều ft Lam Anh.mp4").toURI().toString();
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         MediaView mediaView = new MediaView(mediaPlayer);
