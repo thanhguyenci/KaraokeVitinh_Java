@@ -1,7 +1,5 @@
 package thanh;
 
-import sun.swing.table.DefaultTableCellHeaderRenderer;
-
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.ChangeEvent;
