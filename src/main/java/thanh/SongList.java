@@ -1,5 +1,8 @@
 package thanh;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -24,6 +27,8 @@ public class SongList extends JFrame implements ActionListener {
     public static JTable table;
     public JTextField textField;
     //private TableRowSorter sortera;
+    Gson gson = new Gson();
+    JsonObject rootObject = new JsonObject();
 
     public SongList() {
         super("");
@@ -139,10 +144,13 @@ public class SongList extends JFrame implements ActionListener {
                 //System.out.println("File " + i + " " + listOfFiles[i].getName().replace(".mid"," "));
                 String format = String.format("%06d", i); //replace(".mid"," "
                 tablemodel.addRow(new Object[]{String.format(format, i), listOfFiles[i].getName().replace(".mid", " ")});
+                rootObject.addProperty(String.format(format, i),listOfFiles[i].getName().replace(".mid", " "));
             } else if (listOfFiles[i].isDirectory()) {
                 //System.out.println("Directory " + listOfFiles[i].getName());
             }
         }
+        String jsonString = gson.toJson(rootObject);
+        System.out.println(jsonString);
 
         // TODO TABLE WITH COLOR
         table = new JTable(tablemodel) {
