@@ -105,6 +105,123 @@ public class SocketServer {
                 (byte) value};
     }
 
+    private static void handleClient(Socket socket) {
+        try (OutputStream outputStream = socket.getOutputStream();
+             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
+             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+            // The path to the JSON file (replace with your actual file)
+            /*String filePath = "songlist/songlist.json";
+            File file = new File(filePath);
+            if (!file.exists()) {
+                try (PrintWriter writer = new PrintWriter(filePath)) {
+                    writer.println("{\"name\":\"Jane Doe\",\"age\":25}");
+                    System.out.println("File created");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }*/
+
+            String filePath = "songlist/songlist1.json";
+            File file = new File(filePath);
+            if (!file.exists()) {
+                try (PrintWriter writer = new PrintWriter(filePath)) {
+                    for (int i = 0; i < 190000000; i++) {
+                        writer.println("0123456789");
+                    }
+                    System.out.println("File created");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            // Send in chunks directly from the file
+            //int chunkSize = 120 * 1014; // 4KB
+            int chunkSize = 8192;
+            try (FileInputStream fileInputStream = new FileInputStream(file);
+                 BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
+
+                byte[] chunk = new byte[chunkSize];
+                int bytesRead;
+
+                while ((bytesRead = bufferedInputStream.read(chunk)) != -1) {
+                    // Send the length of the chunk first (4 bytes)
+                    byte[] lengthBytes = intToByteArray(bytesRead);
+                    try {
+                        bufferedOutputStream.write(lengthBytes);
+                        bufferedOutputStream.flush(); // Very important!
+                    } catch (SocketException e) {
+                        System.err.println("Socket write error: 1 " + e.getMessage());
+                        return;
+                    }
+
+                    // Send the chunk
+                    try {
+                        bufferedOutputStream.write(chunk, 0, bytesRead);
+                        bufferedOutputStream.flush(); // Very important!
+                    } catch (SocketException e) {
+                        System.err.println("Socket write error: 2 " + e.getMessage());
+                        return;
+                    }
+                }
+
+                // Send end of stream (-1).
+                byte[] lengthBytes = intToByteArray(-1);
+                /*bufferedOutputStream.write(lengthBytes);
+                bufferedOutputStream.flush();*/
+                try {
+                    bufferedOutputStream.write(lengthBytes);
+                    bufferedOutputStream.flush(); // Very important!
+                } catch (SocketException e) {
+                    System.err.println("Socket write error: 3 " + e.getMessage());
+                    return;
+                }
+                //Receive the response
+                /*String response = bufferedReader.readLine();
+                System.out.println(response);*/
+                try {
+                    String response = bufferedReader.readLine();
+                    System.out.println(response);
+                } catch (SocketTimeoutException e) {
+                    System.err.println("Read timeout: 4 " + e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void connection01(int port, String jsonString) {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server is listening on port " + port);
+
+            while (true) {
+                try (Socket socket = serverSocket.accept();
+                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
+
+                    String message = in.readLine();
+                    System.out.println("Received: " + message);
+
+                    // Respond to client
+                    //out.println("Hello, Client!");
+                    out.println(jsonString);
+
+                } catch (IOException e) {
+                    System.out.println("Connection error: " + e.getMessage());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private static void handleClient(Socket socket, String string) {
         try (OutputStream outputStream = socket.getOutputStream();
              BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
@@ -154,101 +271,6 @@ public class SocketServer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private static void handleClient(Socket socket) {
-        try (OutputStream outputStream = socket.getOutputStream();
-             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
-             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-
-            // The path to the JSON file (replace with your actual file)
-            /*String filePath = "songlist/songlist.json";
-            File file = new File(filePath);
-            if (!file.exists()) {
-                try (PrintWriter writer = new PrintWriter(filePath)) {
-                    writer.println("{\"name\":\"Jane Doe\",\"age\":25}");
-                    System.out.println("File created");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }*/
-
-            String filePath = "songlist/songlist.json";
-            File file = new File(filePath);
-            if (!file.exists()) {
-                try (PrintWriter writer = new PrintWriter(filePath)) {
-                    for (int i = 0; i < 19000; i++) {
-                        writer.println("0123456789");
-                    }
-                    System.out.println("File created");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-
-            // Send in chunks directly from the file
-            //int chunkSize = 4096; // 4KB
-            int chunkSize = 8192;
-            try (FileInputStream fileInputStream = new FileInputStream(file);
-                 BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
-
-                byte[] chunk = new byte[chunkSize];
-                int bytesRead;
-
-                while ((bytesRead = bufferedInputStream.read(chunk)) != -1) {
-                    // Send the length of the chunk first (4 bytes)
-                    byte[] lengthBytes = intToByteArray(bytesRead);
-                    bufferedOutputStream.write(lengthBytes);
-                    bufferedOutputStream.flush();
-
-                    // Send the chunk
-                    bufferedOutputStream.write(chunk, 0, bytesRead);
-                    bufferedOutputStream.flush(); // Very important!
-                }
-
-                // Send end of stream (-1).
-                byte[] lengthBytes = intToByteArray(-1);
-                bufferedOutputStream.write(lengthBytes);
-                bufferedOutputStream.flush();
-                //Receive the response
-                String response = bufferedReader.readLine();
-                System.out.println(response);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void connection01(int port, String jsonString) {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Server is listening on port " + port);
-
-            while (true) {
-                try (Socket socket = serverSocket.accept();
-                     BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
-
-                    String message = in.readLine();
-                    System.out.println("Received: " + message);
-
-                    // Respond to client
-                    //out.println("Hello, Client!");
-                    out.println(jsonString);
-
-                } catch (IOException e) {
-                    System.out.println("Connection error: " + e.getMessage());
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
