@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 
 public class SocketServer {
 
@@ -41,13 +42,12 @@ public class SocketServer {
         }*/
 
         int port = 5000;
-        int readTimeoutMillis = 10000;
-
+        //int readTimeoutMillis = 60000;
         //connection01(port, jsonString);
-
         ServerSocket serverSocket = new ServerSocket(port);
         //serverSocket.setSoTimeout(readTimeoutMillis);
         System.out.println("Server started on port " + port);
+        String filePath = "songlist/200Kb_file.txt";
 
         while (true) {
             Socket socket = serverSocket.accept();
@@ -55,9 +55,10 @@ public class SocketServer {
 
             // Start a new thread to handle the client
             //new Thread(() -> handleClient(socket, jsonString)).start();
-            new Thread(() -> handleClient(socket)).start();
-        }
+            //new Thread(() -> handleClient(socket)).start();
 
+            new Thread(() -> handleClient(socket, filePath)).start();
+        }
 
         /*String serverAddress = "192.168.0.172";
         int port = 5000;
@@ -122,23 +123,27 @@ public class SocketServer {
                 }
             }*/
 
-            String filePath = "songlist/songlist1.json";
+            String filePath = "songlist/200Kb_file.txt";
             File file = new File(filePath);
             if (!file.exists()) {
                 try (PrintWriter writer = new PrintWriter(filePath)) {
-                    for (int i = 0; i < 190000000; i++) {
+                    for (int i = 0; i < 200000; i++) {
                         writer.println("0123456789");
                     }
                     System.out.println("File created");
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    System.err.println(e.getMessage());
                 }
             }
-
+            long fileSizeInBytes = file.length();
+            String formattedFileSize = formatFileSize(fileSizeInBytes);
+            System.out.println("Formatted File Size: " + formattedFileSize);
 
             // Send in chunks directly from the file
-            //int chunkSize = 120 * 1014; // 4KB
-            int chunkSize = 8192;
+            //int chunkSize = 1200 * 1014; // 4KB
+            //int chunkSize = 4096;
+            int chunkSize = 4096;
             try (FileInputStream fileInputStream = new FileInputStream(file);
                  BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
 
@@ -177,6 +182,7 @@ public class SocketServer {
                     System.err.println("Socket write error: 3 " + e.getMessage());
                     return;
                 }
+
                 //Receive the response
                 /*String response = bufferedReader.readLine();
                 System.out.println(response);*/
@@ -189,13 +195,21 @@ public class SocketServer {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            //System.err.println(e.getMessage());
         } finally {
             try {
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
+                //System.err.println(e.getMessage());
             }
         }
+    }
+
+    public static String formatFileSize(long fileSizeInBytes) {
+        double fileSizeInMB = (double) fileSizeInBytes / (1024 * 1024);
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(fileSizeInMB) + " MB";
     }
 
     public static void connection01(int port, String jsonString) {
@@ -222,6 +236,7 @@ public class SocketServer {
             e.printStackTrace();
         }
     }
+
     private static void handleClient(Socket socket, String string) {
         try (OutputStream outputStream = socket.getOutputStream();
              BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream);
@@ -271,6 +286,32 @@ public class SocketServer {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static void sendFile(Socket socket, String filePath) throws IOException {
+        File file = new File(filePath);
+        try (FileInputStream fis = new FileInputStream(file);
+             BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream())) {
+
+            // Send file size first (optional, helps client know file length)
+            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            dos.writeLong(file.length());
+            dos.flush();
+
+            byte[] buffer = new byte[8192]; // 8KB buffer
+            int bytesRead;
+
+            System.out.println("Sending file: " + file.getName());
+
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                bos.write(buffer, 0, bytesRead);
+            }
+
+            bos.flush();
+            System.out.println("File sent successfully!");
+        } finally {
+            socket.close();
         }
     }
 }
