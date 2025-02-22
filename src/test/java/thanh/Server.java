@@ -29,7 +29,8 @@ public class Server {
              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
             // The path to the file (replace with your actual file)
-            String filePath = "large_file.txt";
+            //String filePath = "large_file.txt";
+            String filePath = "songlist/songlist.json";
             File file = new File(filePath);
             if (!file.exists()) {
                 try (PrintWriter writer = new PrintWriter(filePath)) {
@@ -108,10 +109,8 @@ public class Server {
                     System.err.println("Server Read timeout: " + e.getMessage());
                 } catch (SocketException e){
                     System.err.println("Server SocketException: " + e.getMessage());
-                    return;
                 } catch (IOException e){
                     System.err.println("Server: IOException: " + e.getMessage());
-                    return;
                 }
             } catch (IOException e) {
                 System.err.println("Server Error reading from file: " + e.getMessage());
