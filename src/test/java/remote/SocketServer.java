@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 public class SocketServer {
 
     public static void main(String[] args) throws IOException {
-        int port = 5000;
+        /*int port = 5000;
         //int readTimeoutMillis = 60000;
         ServerSocket serverSocket = new ServerSocket(port);
         //serverSocket.setSoTimeout(readTimeoutMillis);
@@ -21,8 +21,8 @@ public class SocketServer {
             System.out.println("Client connected");
             // Start a new thread to handle the client
             new Thread(() -> handleClient(socket)).start();
-        }
-        //handleClientDefault();
+        }*/
+        handleClientDefault();
         //showFilesInFolder();
     }
 
