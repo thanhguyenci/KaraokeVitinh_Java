@@ -37,7 +37,6 @@ build/
 ### Mac OS ###
 .DS_Store
 /.idea
-/src/test/java
 Walaoke.zip
 videos/mountains_-_59291 (1080p)_xvid.avi
 src/res/MP4/mountains.mp4
