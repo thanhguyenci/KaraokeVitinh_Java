@@ -1,3 +1,5 @@
 https://font.download/search/vietnamese
-java jdk 1.8.0_181
+java jdk1.8.0_181
+java jdk21.0.6: Error: JavaFX runtime components are missing, and are required to run this application
+
 *.mp4 video must reconvert to *_x264.mp4
