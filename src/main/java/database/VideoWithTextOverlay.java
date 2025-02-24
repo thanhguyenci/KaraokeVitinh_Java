@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class VideoWithTextOverlay extends Application {
-    private static final String DB_URL = "jdbc:sqlite:C:\\DevOps\\MyWorks\\thanhguyenci\\KaraokeVitinh_Java\\video_app.db";
+    private static final String DB_URL = "jdbc:sqlite:video_app.db";
 
     public static String fetchOverlayText(int videoId, Duration currentTime) {
         String overlayText = "Default Text";
