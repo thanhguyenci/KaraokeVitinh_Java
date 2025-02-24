@@ -21,7 +21,7 @@ public class VideoWithTextOverlay extends Application {
 
     public static String fetchOverlayText(int videoId, Duration currentTime) {
         String overlayText = "Default Text";
-        String sql = "SELECT overlay FROM videos WHERE video_id = ? AND time_start <= ? AND time_end >= ?";
+        String sql = "SELECT overlay FROM videosx WHERE video_id = ? AND time_start <= ? AND time_end >= ?";
 
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
