@@ -5,3 +5,4 @@ java jdk21.0.6: Error: JavaFX runtime components are missing, and are required t
 *.mp4 video must reconvert to *_x264.mp4
 
 I build Karaoke Software using AI
+Enable mic > Settings > Microphone > Allow apps to access your microphone > on
