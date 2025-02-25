@@ -68,12 +68,16 @@
             <version>1.7.36</version>
         </dependency>
         <!-- Logback Classic Binding -->
-        <dependency>
+        <!--dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.12</version>
+        </dependency-->
+        <dependency>
+            <groupId>uk.co.caprica</groupId>
+            <artifactId>vlcj</artifactId>
+            <version>4.7.1</version>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>
