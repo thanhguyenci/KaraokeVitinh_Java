@@ -28,7 +28,7 @@ public class DatabaseSetup {
             e.printStackTrace();
         }
 
-        initializeDatabase(url);
+        //initializeDatabase(url);
     }
 
     private static void initializeDatabase(String DB_URL) {

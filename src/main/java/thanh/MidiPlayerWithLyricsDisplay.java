@@ -1,16 +1,18 @@
 package thanh;
+
 import javax.sound.midi.*;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
-public class MidiPlayerWithLyrics {
+public class MidiPlayerWithLyricsDisplay {
     public static void main(String[] args) {
         try {
             // Load the MIDI file
-            File midiFile = new File("MIDI California Vietnamese Vol20\\QUÊN ĐI HẾT ĐAM MÊ_(830215).mid");  // Replace with your MIDI file path
+            File midiFile = new File("MIDI California Vietnamese Vol20\\QUÊN ĐI HẾT ĐAM MÊ_(830215).mid"); // Replace with your MIDI file path
             Sequence sequence = MidiSystem.getSequence(midiFile);
             Sequencer sequencer = MidiSystem.getSequencer();
             sequencer.open();
@@ -25,16 +27,25 @@ public class MidiPlayerWithLyrics {
                     if (message instanceof MetaMessage) {
                         MetaMessage metaMessage = (MetaMessage) message;
                         if (metaMessage.getType() == 0x05) { // 0x05 is the MIDI Lyrics Meta Event
-                            Charset charset = Charset.forName("windows-1252");
-                            String lyrics = new String(metaMessage.getData(), charset);
-
-                            //String lyrics = new String(metaMessage.getData(), StandardCharsets.ISO_8859_1);
-                            //String lyrics = new String(metaMessage.getData(), StandardCharsets.US_ASCII);
+                            String lyrics = new String(metaMessage.getData());
                             lyricsMap.put(event.getTick(), lyrics);
                         }
                     }
                 }
             }
+
+            // Create a GUI for displaying lyrics
+            JFrame lyricFrame = new JFrame("Karaoke Lyrics");
+            lyricFrame.setSize(800, 200);
+            lyricFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            lyricFrame.setLayout(new BorderLayout());
+
+            JLabel lyricLabel = new JLabel("", SwingConstants.CENTER);
+            lyricLabel.setFont(new Font("Arial", Font.BOLD, 24));
+            lyricLabel.setForeground(Color.BLUE);
+            lyricFrame.add(lyricLabel, BorderLayout.CENTER);
+
+            lyricFrame.setVisible(true);
 
             // Start playback
             sequencer.start();
@@ -46,12 +57,13 @@ public class MidiPlayerWithLyrics {
                         long tickPosition = sequencer.getTickPosition();
                         lyricsMap.entrySet().removeIf(entry -> {
                             if (entry.getKey() <= tickPosition) {
-                                System.out.print(entry.getValue()); // Display lyric line
+                                String currentLyric = entry.getValue();
+                                SwingUtilities.invokeLater(() -> lyricLabel.setText(currentLyric)); // Update GUI
                                 return true; // Remove displayed lyrics
                             }
                             return false;
                         });
-                        Thread.sleep(200); // Check every 200ms
+                        Thread.sleep(100); // Check every 100ms
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

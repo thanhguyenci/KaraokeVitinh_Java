@@ -3,6 +3,7 @@ import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,15 @@ public class MidiLyricDisplay {
                 if (message instanceof MetaMessage) {
                     MetaMessage metaMessage = (MetaMessage) message;
                     if (metaMessage.getType() == 0x05) { // Lyric event
-                        String lyric = new String(metaMessage.getData(), StandardCharsets.ISO_8859_1);
-                        lyric = new String(lyric.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                        //String lyric = new String(metaMessage.getData(), StandardCharsets.ISO_8859_1);
+                        //lyric = new String(lyric.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1);
+
+                        //String lyric = new String(metaMessage.getData(), StandardCharsets.ISO_8859_1);
+                        //lyric = new String(lyric.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1);
+
+                        Charset charset = Charset.forName("windows-1252");
+                        String lyric = new String(metaMessage.getData(), charset);
+
                         lyrics.add(new LyricEvent(lyric, event.getTick()));
                     }
                 }
