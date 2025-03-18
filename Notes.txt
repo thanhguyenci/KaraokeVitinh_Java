@@ -6,3 +6,22 @@ java jdk21.0.6: Error: JavaFX runtime components are missing, and are required t
 
 I build Karaoke Software using AI
 Enable mic > Settings > Microphone > Allow apps to access your microphone > on
+
+CheckList:
+- Load a folder and make a list from the folder > add the list to the database>
+> if database empty load a folder> else load a folder
+
+Functions code are generation by ChatGPT and Gemini
+- Play a video file > play a midi file > if a midi file load lyrics > other just play
+- Play a video file > pause, fast-forward, fast backward, repeat, shuffle, order. Stop > move to next song.
+- PC Mic, open mic > close mic > play back on pc > add echo > (high pitch/ low pitch)
+don't know yet.
+
+- Remote control > connect Android phone wireless to pc >
+1.Socket/client protocol for realtime connect > send database/ json list.
+
+- Will work with External Amplifier > connect aux from the pc to Amplifier > and connect mic.
+
+Problem:
+Can't display vietnamese font correctly.
+Midi format is obsolete because the low sound quality. Will support with multi video format.

@@ -7,7 +7,7 @@ public class ServerSocketExample {
     public static void main(String args[]) throws Exception {
 
         // Create server socket
-        ServerSocket serverSocket = new ServerSocket(8888);
+        ServerSocket serverSocket = new ServerSocket(5000);
 
         System.out.println("Waiting for client request");
 

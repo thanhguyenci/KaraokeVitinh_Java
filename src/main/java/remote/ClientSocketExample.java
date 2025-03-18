@@ -7,7 +7,7 @@ public class ClientSocketExample {
 
     public static void main(String args[]) throws Exception {
         // Create socket connection
-        Socket socket = new Socket("localhost", 8888);
+        Socket socket = new Socket("localhost", 5000);
 
         // create printer writer for sending data to the server
         PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
