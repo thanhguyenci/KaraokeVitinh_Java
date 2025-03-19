@@ -25,3 +25,7 @@ don't know yet.
 Problem:
 Can't display vietnamese font correctly.
 Midi format is obsolete because the low sound quality. Will support with multi video format.
+
+Run > Edit Configurations > Modify options > add VM options >
+--module-path "path/to/javafx-sdk-21.0.1/lib" --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.graphics
+--module-path "javafx-sdk-21.0.1/lib" --add-modules javafx.controls,javafx.fxml,javafx.media,javafx.graphics
