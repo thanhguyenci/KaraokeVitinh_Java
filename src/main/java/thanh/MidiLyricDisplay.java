@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class MidiLyricDisplay {
     public static void main(String[] args) {
-        String midiFilePath = "MIDI California Vietnamese Vol20\\QUÊN ĐI HẾT ĐAM MÊ_(830215).mid"; // Change to your file path
+        String midiFilePath = "California Vol 18\\QUÊN ĐI HẾT ĐAM MÊ_(830215).mid"; // Change to your file path
         
         try {
             // Load MIDI file

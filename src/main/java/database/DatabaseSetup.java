@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class DatabaseSetup {
     public static void main(String[] args) {
-        String url = "jdbc:sqlite:video_app.db";
+        /*String url = "jdbc:sqlite:video_app.db";
 
         // SQL to create a table to store video metadata
         String createTableSQL = "CREATE TABLE IF NOT EXISTS videos (" +
@@ -26,9 +26,30 @@ public class DatabaseSetup {
             System.out.println("Table created successfully.");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
+        }*/
         //initializeDatabase(url);
+        createTableSonglist();
+    }
+
+    private static void createTableSonglist() {
+        String url = "jdbc:sqlite:app_songlist.db";
+        String createTableSQL = "CREATE TABLE IF NOT EXISTS songlist ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "title TEXT NOT NULL, "
+                + "artist TEXT, "
+                + "album TEXT, "
+                + "genre TEXT, "
+                + "year INTEGER, "
+                + "path TEXT NOT NULL"
+                + ");";
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            // Create the table
+            stmt.execute(createTableSQL);
+            System.out.println("Table created successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void initializeDatabase(String DB_URL) {
